@@ -1,37 +1,112 @@
 package model;
 
+import java.io.FileInputStream;  
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
+import java.util.Properties;
+
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Users
- */
-public class Users extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Users() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+public class Users {
+	
+	private String userName;
+	private String password;
+	
+	public String getUserName() {
+		return userName;
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Users(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
+	
+	public void registerUser(Users aUser, String propFilePath) {
+		
+		Properties p = new Properties();
+		FileInputStream fis = null;
+		
+		try {
+			fis = new FileInputStream(propFilePath);
+			p.load(fis);
+			p.setProperty(aUser.getUserName(), aUser.getPassword());
+			p.store(new FileOutputStream(propFilePath), null);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(fis!=null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	// validateUser
+	public void validateUser(Users aUser, String propFilePath, HttpServletResponse response) {
+		
+		Properties p = new Properties();
+		
+		FileInputStream fis = null;
+		
+		try {
+			fis = new FileInputStream(propFilePath);
+			
+			p.load(fis);
+				
+			// Check whether the username exists or not
+			if(!p.containsKey(userName)) {			
+				// Link-redirection
+				
+				response.sendRedirect("Registration.jsp");
+				
+			} else { // Check whether the password matches or not
+				String pword = p.getProperty(userName);  
+				if(!pword.equals(password)) {
+					response.sendRedirect("Registration.jsp"); // Link-redirection
+				} else {
+					response.sendRedirect("CustomerHomePage.jsp"); // Link-redirection
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
+		
+	}
+	
+	// removeUser
+	
+	
 }
