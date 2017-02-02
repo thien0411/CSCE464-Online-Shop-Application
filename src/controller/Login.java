@@ -1,9 +1,6 @@
 package controller;
  
-import java.io.FileInputStream; 
 import java.io.IOException;
-import java.util.Properties;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,50 +44,8 @@ public class Login extends HttpServlet {
 		ServletContext sc = this.getServletContext();
 		String propFilePath = sc.getRealPath("/WEB-INF/users.properties");
 		
-		
-		/*
-		Properties p = new Properties();
-		
-		FileInputStream fis = null;
-		
-		try {
-			fis = new FileInputStream(propFilePath);
-			
-			p.load(fis);
-				
-			// Check whether the username exists or not
-			if(!p.containsKey(userName)) {			
-				// Link-redirection
-				response.sendRedirect("Register.jsp");
-			} else { // Check whether the password matches or not
-				String pword = p.getProperty(userName);  
-				if(!pword.equals(password)) {
-					response.sendRedirect("Register.jsp"); // Link-redirection
-				} else {
-					response.sendRedirect("LoginSuccess.jsp"); // Link-redirection
-				}
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if(fis != null) {
-				fis.close();
-			}
-		}
-		/*
-		
-		/*
-		 * Instead using servlet methods (above) for user login,
-		 * instantiate a Users object and 
-		 * use appropriate method for user login from the Users class.
-		 */
-		
 		Users userLogin = new Users(userName, password);
-		
 		userLogin.validateUser(userLogin, propFilePath, response);
-		
-		
 	}
 
 	/**

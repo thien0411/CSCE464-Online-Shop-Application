@@ -1,10 +1,6 @@
 package controller;
 
-import java.io.FileInputStream; 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Properties;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,36 +42,6 @@ public class Registration extends HttpServlet {
 		ServletContext sc = this.getServletContext();
 		String propFilePath = sc.getRealPath("/WEB-INF/users.properties");
 		
-		/*
-		 * The following section is used to create a properties object,
-		 * then to access the properties file via it,
-		 * store username and password
-		 * This part should commented out to do registration via the User object
-		 */
-		
-		/*
-		Properties p = new Properties();
-		
-		FileInputStream fis = null;
-		
-		try {		
-			fis = new FileInputStream(propFilePath);
-			p.load(fis);
-			
-			p.setProperty(userName, password);
-			p.store(new FileOutputStream(propFilePath), null);
-			response.sendRedirect("Welcome.jsp"); // Link-redirection
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (fis != null) {
-				fis.close();
-			}
-		}
-		*/
-		
-		
 		// Registration via the Users object
 		Users aUser = new Users(userName, password);
 		
@@ -84,7 +50,6 @@ public class Registration extends HttpServlet {
 		// Register the Users object
 		aUser.registerUser(aUser, propFilePath);
 		response.sendRedirect("Login.jsp"); 	
-			
 	}
 
 	/**

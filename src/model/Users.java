@@ -34,7 +34,6 @@ public class Users {
 	}
 	
 	public void registerUser(Users aUser, String propFilePath) {
-		
 		Properties p = new Properties();
 		FileInputStream fis = null;
 		
@@ -43,19 +42,15 @@ public class Users {
 			p.load(fis);
 			p.setProperty(aUser.getUserName(), aUser.getPassword());
 			p.store(new FileOutputStream(propFilePath), null);
-			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if(fis!=null) {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -64,7 +59,6 @@ public class Users {
 	
 	// validateUser
 	public void validateUser(Users aUser, String propFilePath, HttpServletResponse response) {
-		
 		Properties p = new Properties();
 		
 		FileInputStream fis = null;
@@ -77,9 +71,7 @@ public class Users {
 			// Check whether the username exists or not
 			if(!p.containsKey(userName)) {			
 				// Link-redirection
-				
 				response.sendRedirect("Registration.jsp");
-				
 			} else { // Check whether the password matches or not
 				String pword = p.getProperty(userName);  
 				if(!pword.equals(password)) {
@@ -89,21 +81,16 @@ public class Users {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if(fis != null) {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-		
-		
-		
 	}
 	
 	// removeUser
