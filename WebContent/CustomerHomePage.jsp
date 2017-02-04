@@ -1,17 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Customer Home Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+<title>Customer Home Page</title>
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/css/main.css">
-
+<link rel="stylesheet" href="css/main.css">
 
 </head>
 <body>
@@ -47,11 +47,18 @@
 				</li>
 			</ul>
 			
-			<form class="navbar-form navbar-right" action="ProductSearchResults.jsp">
+			<form class="navbar-form navbar-right" role="search" action="ProductSearchResults.jsp">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
+          <label for="categories">Category</label>
+          <select class="form-control" name="productCategory">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+					<input type="text" class="form-control" name="searchQuery" placeholder="Search">
 				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
+				<input type="button" class="btn btn-default" onclick="validateSearch(this.form)" value="Search">
 			</form>
 		</div>
 	</div>
@@ -60,5 +67,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
