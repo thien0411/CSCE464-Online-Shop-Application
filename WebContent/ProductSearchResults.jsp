@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "util.*" %>
 
 <%
-  String query = request.getParameter("searchQuery");
-  String category = request.getParameter("productCategory");
+  String query = InputFormatting.safeFilter(request.getParameter("searchQuery"));
+  String category = request.getParameter("category");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 <title>Search - <%= query %></title>
@@ -55,15 +56,16 @@
 			<form class="navbar-form navbar-right" role="search" action="ProductSearchResults.jsp">
 				<div class="form-group">
           <label for="categories">Category</label>
-          <select class="form-control" name="productCategory">
+          <select class="form-control" name="category">
+            <option value="0">All Categories</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
-					<input type="text" class="form-control" name="searchQuery" placeholder="Search" value="<%= query %>">
+					<input type="text" class="form-control" name="searchQuery" placeholder="Search" value="<%= query %>" required="required">
 				</div>
-				<input type="button" class="btn btn-default" onclick="validateSearch(this.form)" value="Search">
+				<input type="button" class="btn btn-default" onclick="validateSearch(this.form)" value="Submit">
 			</form>
 		</div>
 	</div>
