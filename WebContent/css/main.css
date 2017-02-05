@@ -1,6 +1,19 @@
 body {
-	margin: 0 auto;
+  margin: 0 auto;
 }
 
 #header {
+  text-align: center;
+}
+
+#cred {
+  max-width: 30em;
+  margin: 0 auto;
+  border: .125em solid #555;
+  border-radius: .25em;
+  padding: 2em 1em;
+}
+
+#cred .input-group {
+  width: 100%;
 }

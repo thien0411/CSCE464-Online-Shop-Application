@@ -1,30 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MVC Web Application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Registration - MVC Web Application</title>
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
+<div class="container">
+  <div id="header">
+    <h1>Online Shopping Application</h1>
+    <h2>Registration</h2>
+  </div>
 
-<h1> A Simple MVC Web Application</h1>
-<h2> Register here</h2>
+  <div id="cred">
+    <form action="Registration">
+      <div class="input-group">
+        <input type="text" class="form-control" name="userName" placeholder="Username" required="required">
+      </div>
 
-<form action = Registration>
+      <div class="input-group">
+        <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+      </div>
 
-User Name: <input type=text name=userName><br>
-Password: <input type=password name=password><br>
-<input type=submit value=Register> <br> 
+      <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+          <input type="submit" class="btn btn-primary" value="Register">
+        </div>
+      </div>
+    </form>
 
-</form>
+    <h4><a href="Login.jsp">Home</a></h4>
+  </div>
+</div>
 
-<br>
-<br>
-
-<!-- Navigation links --> 
-<a href="Login.jsp"> Home Page </a> <br>
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>
