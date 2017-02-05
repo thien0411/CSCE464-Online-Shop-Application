@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "util.*" %>
+<%@ page import = "util.*, model.Product" %>
 
 <%
   String query = InputFormatting.safeFilter(request.getParameter("searchQuery"));
   String category = request.getParameter("category");
+  Product p = new Product();
 %>
 <!DOCTYPE html>
 <html>
@@ -31,20 +32,21 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
-			</button>	
+			</button>
 			<a class="navbar-brand" href="CustomerHomePage.jsp">Welcome</a>
 		</div>
-		
-		
+
+
 		<div class="collapse navbar-collapse" id="head-nav">
 			<ul class="nav navbar-nav">
 				<li><a href="CustomerHomePage.jsp">Home</a></li>
+        <li><a href="ManageOrder.jsp">Manage Order</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 					role="button" aria-haspopup="true" aria-expanded="false">
 						Account <span class="caret"></span>
 					</a>
-					
+
 					<ul class="dropdown-menu">
 						<li><a href="ViewOrders.jsp">View Orders</a></li>
 						<li role="separator" class="divider"></li>
@@ -52,7 +54,7 @@
 					</ul>
 				</li>
 			</ul>
-			
+
 			<form class="navbar-form navbar-right" role="search" action="ProductSearchResults.jsp">
 				<div class="form-group">
           <label for="categories">Category</label>
@@ -70,6 +72,24 @@
 		</div>
 	</div>
 </nav>
+
+<div class="container">
+  <h2>Search results for <i><%= query %></i></h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Thumbnail</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Seller Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= p.showResults() %>
+    </tbody>
+  </table>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
