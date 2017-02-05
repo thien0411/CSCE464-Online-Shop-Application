@@ -63,34 +63,34 @@
     <tbody>
     	<tr>
      		<td>123123</td>
-     		<td>190.00</td>
-     		<td>01/01/199</td>
+     		<td>150.00</td>
+     		<td>01/01/2017</td>
      		<td>
-     			<form action="ManageOrder.jps"> <input type="submit" class="btn btn-primary" value="View"></form>
+     			<form action="ManageOrder.jsp"> <input type="submit" class="" value="View"></form>
      		</td>
      	</tr>
      	<tr>
-     		<td>123123</td>
-     		<td>190.00</td>
-     		<td>01/01/199</td>
+     		<td>234567</td>
+     		<td>158.00</td>
+     		<td>14/01/2017</td>
      		<td>
-     			<form action="ManageOrder.jps"> <input type="submit" class="btn btn-primary" value="View"></form>
+     			<form action="ManageOrder.jsp"> <input type="submit" class="" value="View"></form>
      		</td>
      	</tr>
      	<tr>
-     		<td>123123</td>
-     		<td>190.00</td>
-     		<td>01/01/199</td>
+     		<td>345678</td>
+     		<td>164.00</td>
+     		<td>12/01/2017</td>
      		<td>
-     			<form action="ManageOrder.jps"> <input type="submit" class="btn btn-primary" value="View"></form>
+     			<form action="ManageOrder.jsp"> <input type="submit" class="" value="View"></form>
      		</td>
      	</tr>
      	<tr>
-     		<td>123123</td>
-     		<td>190.00</td>
-     		<td>01/01/199</td>
+     		<td>456789</td>
+     		<td>182.00</td>
+     		<td>11/01/2017</td>
      		<td>
-     			<form action="ManageOrder.jps"> <input type="submit" class="btn btn-primary" value="View"></form>
+     			<form action="ManageOrder.jsp"> <input type="submit" class="" value="View"></form>
      		</td>
      	</tr>
     </tbody>
