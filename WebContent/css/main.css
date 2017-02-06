@@ -17,3 +17,17 @@ body {
 #cred .input-group {
   width: 100%;
 }
+
+.table img {
+  max-height: 5em;
+  max-width: 5em;
+}
+
+.product-details img {
+  max-height: 25em;
+  max-width: 25em;
+}
+
+.order-details {
+  font-size: 1.5em;
+}

@@ -66,7 +66,7 @@
      		<td>150.00</td>
      		<td>01/01/2017</td>
      		<td>
-     			<form action="ManageOrder.jsp"> <input type="submit" class="" value="View"></form>
+     			<form action="ManageOrder.jsp"> <input type="submit" class="btn btn-default" value="View"></form>
      		</td>
      	</tr>
      	<tr>
@@ -74,7 +74,7 @@
      		<td>158.00</td>
      		<td>14/01/2017</td>
      		<td>
-     			<form action="ManageOrder.jsp"> <input type="submit" class="" value="View"></form>
+     			<form action="ManageOrder.jsp"> <input type="submit" class="btn btn-default" value="View"></form>
      		</td>
      	</tr>
      	<tr>
@@ -82,7 +82,7 @@
      		<td>164.00</td>
      		<td>12/01/2017</td>
      		<td>
-     			<form action="ManageOrder.jsp"> <input type="submit" class="" value="View"></form>
+     			<form action="ManageOrder.jsp"> <input type="submit" class="btn btn-default" value="View"></form>
      		</td>
      	</tr>
      	<tr>
@@ -90,7 +90,7 @@
      		<td>182.00</td>
      		<td>11/01/2017</td>
      		<td>
-     			<form action="ManageOrder.jsp"> <input type="submit" class="" value="View"></form>
+     			<form action="ManageOrder.jsp"> <input type="submit" class="btn btn-default" value="View"></form>
      		</td>
      	</tr>
     </tbody>

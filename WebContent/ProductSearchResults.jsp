@@ -6,6 +6,7 @@
   String query = InputFormatting.safeFilter(request.getParameter("searchQuery"));
   String category = request.getParameter("category");
   Product p = new Product();
+  String results = p.showResults(request);
 %>
 <!DOCTYPE html>
 <html>
@@ -35,7 +36,6 @@
 			</button>
 			<a class="navbar-brand" href="CustomerHomePage.jsp">Welcome</a>
 		</div>
-
 
 		<div class="collapse navbar-collapse" id="head-nav">
 			<ul class="nav navbar-nav">
@@ -83,10 +83,11 @@
         <th>Category</th>
         <th>Seller Name</th>
         <th>Price</th>
+        <td></td>
       </tr>
     </thead>
     <tbody>
-      <%= p.showResults() %>
+      <%= results %>
     </tbody>
   </table>
 </div>
