@@ -64,9 +64,11 @@
       	<p>Seller Name: ThienNguyen</p>
       	<p>Shipping Status: Currently being delivered</p>
 
+      </td>
+      <td>
         <form action="ViewProductDetails.jsp">
-      		<input type="submit" class="btn btn-default" value="View Product Details">
-      	</form>
+          <input type="submit" class="btn btn-default" value="View Product Details">
+        </form>
       </td>
     </tr>
 
@@ -77,9 +79,10 @@
         <p>Total Price: $100.00</p>
         <p>Seller Name: Amazon</p>
         <p>Shipping Status: Waiting to be shipped</p>
-
+      </td>
+      <td>
         <form action="ViewProductDetails.jsp">
-        	<input type="submit" class="btn btn-default" value="View Product Details">
+          <input type="submit" class="btn btn-default" value="View Product Details">
         </form>
 
         <form action="CancelOrder.jsp">

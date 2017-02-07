@@ -67,6 +67,9 @@
       <td></td>
     </tr>
     <%= p.showShoppingCart(request) %>
+    <tr>
+      <td colspan="7"><h3>Subtotal: $45.75</h3></td>
+    </tr>
   </table>
 
   <form action="CustomerTransaction.jsp">

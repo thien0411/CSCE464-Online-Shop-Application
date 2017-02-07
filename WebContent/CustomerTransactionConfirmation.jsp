@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "util.*, model.Product" %>
+
+<%
+  String firstName = request.getParameter("firstName");
+  String lastName = request.getParameter("lastName");
+  String billingAddress = request.getParameter("billingAddress");
+  String shippingAddress = request.getParameter("shippingAddress");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +56,20 @@
   </div>
 </nav>
 
+<div class="container">
+  <h2>Your order has been placed!</h2>
 
+  <div class="transaction-info">
+    <h3>Cardholder Name</h3>
+    <p><%= lastName %>, <%= firstName %></p>
+
+    <h3>Shipping Address</h3>
+    <p><%= shippingAddress %></p>
+
+    <h3>Billing Address</h3>
+    <p><%= billingAddress %></p>
+  </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>

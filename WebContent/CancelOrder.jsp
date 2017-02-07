@@ -1,18 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 <title>Cancel Order</title>
 
-<link rel="stylesheet"
-	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -50,51 +48,35 @@
   </div>
 </nav>
 
-	<div class="container">
+<div class="container">
+  <h2>Order Number: 123123</h2>
 
-		<ul>
-			<h3>Order Number: 123123</h3>
+  <table class="table">
+    <tr>
+      <td>
+        <h3>Product Name: Product 2</h3>
+        <p>Product quantity: 10</p>
+        <p>Total Price: $100.00</p>
+        <p>Seller Name: Amazon</p>
+        <p>Shipping Status: Wait for shipping</p>
+      </td>
 
-			<ul>
+      <td>
+        <form action="CancellationConfirmation.jsp">
+          <input type="submit" class="btn btn-primary" value="Confirm Cancellation">
+        </form>
+        <br>
+        <form action="CustomerHomePage.jsp">
+          <input type="submit" class="btn btn-default" value="Discard Cancellation">
+        </form>
+      </td>
+    </tr>
+  </table>
+</div>
 
-				<li>
-					<h4>Items1:</h4>
-				</li>
-				<ul>
-					<li>
-						<h4>Product Name: Product2</h4>
-					</li>
-					<li>
-						<h4>Product quantity: 10</h4>
-					</li>
-					<li>
-						<h4>Total Price: $100.00</h4>
-					</li>
-					<li>
-						<h4>Seller Name: Amazon</h4>
-					</li>
-					<li>
-						<h4>Shipping Status: Wait for shipping</h4>
-					</li>
-					<form action="CancellationConfirmation.jsp">
-						<input type="submit" class="" value="Confirm Cancellation">
-					</form>
-					<br>
-					<form action="CustomerHomePage.jsp">
-						<input type="submit" class="" value="Discard Cancellation">
-					</form>
-				</ul>
-			</ul>
-
-		</ul>
-	</div>
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
