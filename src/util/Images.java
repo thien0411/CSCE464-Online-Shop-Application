@@ -7,10 +7,9 @@ public class Images {
 		String accept = request.getHeader("accept");
 
 		if(accept.contains("webp")) {
-			return imageLocation + ".webp";
-		}
-		else {
-			return imageLocation + ".jpg";
+		return imageLocation + ".webp";
+		} else {
+		return imageLocation + ".jpg";
 		}
 	}
 }

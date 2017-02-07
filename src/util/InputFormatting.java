@@ -1,7 +1,7 @@
 package util;
 
 public class InputFormatting  {
-  public static String replaceEmpty (String input, String defaultVal) {
+	public static String replaceEmpty (String input, String defaultVal) {
 		if (input == null || input.trim().equals("")) {
 			return defaultVal;
 		}

@@ -3,9 +3,7 @@
 <%@ page import = "util.*, model.Product" %>
 
 <%
-  String productCode = request.getParameter("productCode");
   Product p = new Product();
-  String details = p.showDetails(request);
 %>
 <!DOCTYPE html>
 <html>
@@ -13,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Product Details - <%= productCode %></title>
+<title>Product Details - Cool Item</title>
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -57,17 +55,29 @@
 </nav>
 
 <div class="container">
-  <div class="product-details">
-    <%= details %>
+  <div class="back">
+    <form action="ProductSearchResults.jsp">
+      <input type="hidden" name="searchQuery" value="cool item">
+      <input class="btn btn-default" type="submit" value="&lt; Back">
+    </form>
+  </div>
+  <div class="product-details row">
+    <%= p.showDetails(request) %>
   </div>
 
   <div class="customer-QA">
-    <h3>Customer Q&A</h3>
-    <%= p.showCustomerQA() %>
+    <h3>Customer Q and A</h3>
+    <table class="table">
+      <%= p.showCustomerQA() %>
+     </table>
   </div>
 
   <div class="customer-review">
     <h3>Reviews</h3>
+    
+    <table class="table">
+      <%= p.showCustomerReviews() %>
+    </table>
   </div>
 </div>
 
