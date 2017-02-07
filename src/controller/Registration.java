@@ -48,8 +48,12 @@ public class Registration extends HttpServlet {
 		//First check whether the user already exists via methods from Users class
 		
 		// Register the Users object
-		aUser.registerUser(aUser, propFilePath);
-		response.sendRedirect("Login.jsp"); 	
+		if(aUser.userExists(userName, propFilePath, response)) {
+			response.sendRedirect("Registration.jsp");
+		} else {
+			aUser.registerUser(aUser, propFilePath);
+			response.sendRedirect("Login.jsp");	
+		}
 	}
 
 	/**

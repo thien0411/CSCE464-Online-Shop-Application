@@ -93,6 +93,32 @@ public class Users {
 		}
 	}
 	
+	public boolean userExists(String username, String propFilePath, HttpServletResponse response) {
+		Properties p = new Properties();
+		FileInputStream fis = null;
+		boolean result = false;
+		
+		try {
+			fis = new FileInputStream(propFilePath);
+			p.load(fis);
+				
+			// Check whether the username exists or not
+			result = p.containsKey(userName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return result;
+	}
+	
 	// removeUser
 	
 	
