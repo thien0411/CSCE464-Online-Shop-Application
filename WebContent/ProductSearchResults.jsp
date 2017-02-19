@@ -44,7 +44,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 					role="button" aria-haspopup="true" aria-expanded="false">
-						Account <span class="caret"></span>
+						${userName} <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu">
@@ -55,7 +55,7 @@
 				</li>
 			</ul>
 
-			<form class="navbar-form navbar-right" role="search" action="ProductSearchResults.jsp">
+			<form class="navbar-form navbar-right" role="search" action="ProductSearchResults.jsp" method="POST">
 				<div class="form-group">
           <label for="categories">Category</label>
           <select class="form-control" name="category">

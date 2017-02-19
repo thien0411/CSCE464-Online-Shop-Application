@@ -24,7 +24,7 @@
   <div id="cred">
     <form action="Registration">
       <div class="input-group">
-        <input type="text" class="form-control" name="userName" placeholder="Username" required="required">
+        <input type="text" class="form-control" name="userName" placeholder="Username" required="required" value="${userName}">
       </div>
 
       <div class="input-group">
@@ -33,7 +33,7 @@
 
       <div class="btn-group btn-group-justified" role="group">
         <div class="btn-group" role="group">
-          <input type="submit" class="btn btn-primary" value="Register">
+          <input type="submit" class="btn btn-primary" value="Register New Account">
         </div>
       </div>
     </form>

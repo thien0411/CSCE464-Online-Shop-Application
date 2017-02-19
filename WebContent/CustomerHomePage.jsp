@@ -35,18 +35,18 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 					role="button" aria-haspopup="true" aria-expanded="false">
-						Account <span class="caret"></span>
+						${userName} <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu">
 						<li><a href="ViewOrders.jsp">View Orders</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="Login.jsp">Logout</a></li>
+						<li><a href="Logout">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
 
-			<form class="navbar-form navbar-right" role="search" action="ProductSearchResults.jsp">
+			<form class="navbar-form navbar-right" role="search" action="ProductSearchQuery" method="POST">
 				<div class="form-group">
           <label for="categories">Category</label>
           <select class="form-control" name="category">
@@ -66,6 +66,7 @@
 
 <div class="container">
   <h1>Customer Home Page</h1>
+  <h3>Welcome ${userName}!</h3>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

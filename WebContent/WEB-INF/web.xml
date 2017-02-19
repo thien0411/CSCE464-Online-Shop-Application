@@ -49,4 +49,24 @@
     <servlet-name>Users</servlet-name>
     <url-pattern>/Users</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProductSearchQuery</display-name>
+    <servlet-name>ProductSearchQuery</servlet-name>
+    <servlet-class>controller.ProductSearchQuery</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductSearchQuery</servlet-name>
+    <url-pattern>/ProductSearchQuery</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>controller.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
 </web-app>

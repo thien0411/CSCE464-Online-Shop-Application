@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Users;
 
@@ -40,12 +41,16 @@ public class Login extends HttpServlet {
 		/* Following two statements are used to obtain the absolute path
 		   of the users.properies file from its relative path. */
 
-
 		ServletContext sc = this.getServletContext();
 		String propFilePath = sc.getRealPath("/WEB-INF/users.properties");
+		HttpSession session = request.getSession();
 
 		Users userLogin = new Users(userName, password);
-		userLogin.validateUser(userLogin, propFilePath, response);
+		String redirect = userLogin.validateUser(userLogin, propFilePath);
+		
+		session.setAttribute("userName", userName);
+		
+		response.sendRedirect(redirect);
 	}
 
 	/**

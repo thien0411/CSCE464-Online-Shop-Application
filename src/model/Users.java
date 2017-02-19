@@ -58,10 +58,10 @@ public class Users {
 	}
 	
 	// validateUser
-	public void validateUser(Users aUser, String propFilePath, HttpServletResponse response) {
+	public String validateUser(Users aUser, String propFilePath) {
 		Properties p = new Properties();
-		
 		FileInputStream fis = null;
+		String redirect = "Registration.jsp";
 		
 		try {
 			fis = new FileInputStream(propFilePath);
@@ -71,13 +71,13 @@ public class Users {
 			// Check whether the username exists or not
 			if(!p.containsKey(userName)) {			
 				// Link-redirection
-				response.sendRedirect("Registration.jsp");
+				redirect = "Registration.jsp";
 			} else { // Check whether the password matches or not
 				String pword = p.getProperty(userName);  
 				if(!pword.equals(password)) {
-					response.sendRedirect("Registration.jsp"); // Link-redirection
+					redirect = "Registration.jsp"; // Link-redirection
 				} else {
-					response.sendRedirect("CustomerHomePage.jsp"); // Link-redirection
+					redirect = "CustomerHomePage.jsp"; // Link-redirection
 				}
 			}
 		} catch (Exception e) {
@@ -91,6 +91,8 @@ public class Users {
 				}
 			}
 		}
+		
+		return redirect;
 	}
 	
 	public boolean userExists(String username, String propFilePath, HttpServletResponse response) {
