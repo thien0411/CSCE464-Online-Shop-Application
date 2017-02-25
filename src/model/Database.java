@@ -12,11 +12,13 @@ public class Database {
 	private PreparedStatement ps;
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+
+//	 TODO: Replace with a cse username and password
+//	static final String DB_URL = "jdbc:mysql://cse.unl.edu:3306/CSE_USERNAME"
+	static final String DB_URL = "jdbc:mysql://localhost:3306/csce464onlineshoppingdb";
 	
-	// TODO: Replace with a username
-	static final String DB_URL = "jdbc:mysql://localhost/EMP";
 	static final String USER = "root";
-	static final String PASS = null;
+	static final String PASS = "pass";
 	
 	public Database () {
 	}
@@ -36,7 +38,10 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void addUser () {
+	}
+
 	public void close () {
 		try {
 			conn.close();

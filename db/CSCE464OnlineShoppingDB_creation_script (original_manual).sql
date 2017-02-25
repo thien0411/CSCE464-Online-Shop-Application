@@ -116,7 +116,3 @@ PRIMARY KEY (Id),
 FOREIGN KEY (OrderId) REFERENCES Orders(Id),
 FOREIGN KEY (ProductId) REFERENCES Products(Id)
 );
-
-
-
-
