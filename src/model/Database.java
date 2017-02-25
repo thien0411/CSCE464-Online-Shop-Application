@@ -39,7 +39,17 @@ public class Database {
 		}
 	}
 
-	public void addUser () {
+	public void addUser (Users user) {
+		String insert = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
+
+		try {
+		    ps = conn.prepareStatement(insert);
+		    ps.setString(1, user.getUserName());
+		    ps.setString(2, user.getPassword());
+		    ps.executeUpdate();
+		} catch (SQLException e) {
+	      e.printStackTrace();
+	    }
 	}
 
 	public void close () {

@@ -57,6 +57,13 @@ public class Users {
 		}
 	}
 	
+	public void registerUser() {
+		Database db = new Database();
+		db.connect();
+		db.addUser(this);
+		db.close();
+	}
+
 	// validateUser
 	public String validateUser(Users aUser, String propFilePath) {
 		Properties p = new Properties();
@@ -119,6 +126,10 @@ public class Users {
 		}
 		
 		return result;
+	}
+	
+	public boolean userExists (String username) {
+		return false;
 	}
 	
 	// removeUser
