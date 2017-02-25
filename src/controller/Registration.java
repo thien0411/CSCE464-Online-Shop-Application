@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import javax.servlet.ServletContext;
+//import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,8 +39,8 @@ public class Registration extends HttpServlet {
 		 
 		/* Following two statements are used to obtain the absolute path 
 		   of the users.properies file from its relative path. */
-		ServletContext sc = this.getServletContext();
-		String propFilePath = sc.getRealPath("/WEB-INF/users.properties");
+//		ServletContext sc = this.getServletContext();
+//		String propFilePath = sc.getRealPath("/WEB-INF/users.properties");
 		
 		// Registration via the Users object
 		Users aUser = new Users(userName, password);
@@ -48,10 +48,10 @@ public class Registration extends HttpServlet {
 		//First check whether the user already exists via methods from Users class
 		
 		// Register the Users object
-		if(aUser.userExists(userName, propFilePath, response)) {
+		if(aUser.userExists()) {
 			response.sendRedirect("Registration.jsp");
 		} else {
-			aUser.registerUser(aUser, propFilePath);
+			aUser.registerUser();
 			response.sendRedirect("Login.jsp");	
 		}
 	}

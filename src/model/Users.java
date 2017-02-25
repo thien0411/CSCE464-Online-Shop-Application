@@ -102,6 +102,31 @@ public class Users {
 		return redirect;
 	}
 	
+	public String validateUser () {
+		String redirect = "Registration.jsp";
+		boolean exists = this.userExists();
+		boolean passMatch = false;
+		
+		Database db = new Database();
+		db.connect();
+		
+		if (!exists) {
+			redirect = "Registration.jsp";
+		} else {
+			passMatch = db.userPassword(this.userName).equals(this.password);
+			if (!passMatch) {
+				redirect = "Registration.jsp";
+			}
+			else {
+				redirect = "CustomerHomePage.jsp";
+			}
+		}
+
+		db.close();
+
+		return redirect;
+	}
+	
 	public boolean userExists(String username, String propFilePath, HttpServletResponse response) {
 		Properties p = new Properties();
 		FileInputStream fis = null;
@@ -128,8 +153,15 @@ public class Users {
 		return result;
 	}
 	
-	public boolean userExists (String username) {
-		return false;
+	public boolean userExists () {
+		boolean result = false;
+		
+		Database db = new Database();
+		db.connect();
+		result = db.userExists(this.userName);
+		db.close();
+		
+		return result;
 	}
 	
 	// removeUser

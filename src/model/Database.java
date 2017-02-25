@@ -3,19 +3,18 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Database {
 	private Connection conn;
-	private Statement stmt;
 	private PreparedStatement ps;
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
 //	 TODO: Replace with a cse username and password
 //	static final String DB_URL = "jdbc:mysql://cse.unl.edu:3306/CSE_USERNAME"
-	static final String DB_URL = "jdbc:mysql://localhost:3306/csce464onlineshoppingdb";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/CSCE464OnlineShoppingDB";
 	
 	static final String USER = "root";
 	static final String PASS = "pass";
@@ -39,6 +38,19 @@ public class Database {
 		}
 	}
 
+	public void close () {
+		try {
+			if (ps != null && !ps.isClosed()) {
+				ps.close();
+			}
+			if (conn != null && !conn.isClosed()) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void addUser (Users user) {
 		String insert = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
 
@@ -52,11 +64,48 @@ public class Database {
 	    }
 	}
 
-	public void close () {
+
+	public boolean userExists (String username) {
+		boolean result = false;
+		String query = "SELECT Username FROM Users where Username = ?";
+		ResultSet rs;
+
 		try {
-			conn.close();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				result = true;
+			}
+
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return result;
+	}
+
+	public String userPassword (String username) {
+		String password = null;
+		String query = "SELECT Password FROM Users where Username = ?";
+		ResultSet rs;
+		
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				password = rs.getString("Password");
+			}
+			
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return password;
 	}
 }

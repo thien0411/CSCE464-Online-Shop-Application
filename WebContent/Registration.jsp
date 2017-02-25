@@ -22,7 +22,7 @@
   </div>
 
   <div id="cred">
-    <form action="Registration">
+    <form action="Registration" method="post">
       <div class="input-group">
         <input type="text" class="form-control" name="userName" placeholder="Username" required="required" value="${userName}">
       </div>
