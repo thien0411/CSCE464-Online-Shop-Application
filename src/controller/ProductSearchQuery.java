@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +32,11 @@ public class ProductSearchQuery extends HttpServlet {
 		/**TODO: Get the matching products based on query
 		 * using Product model
 		 **/
-		HttpSession session = request.getSession();
+
+		/* Define database class and place the results in the request container */
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ProductSearchResults.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

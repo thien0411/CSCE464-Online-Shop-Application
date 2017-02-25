@@ -4,7 +4,7 @@ USE CSCE464OnlineShoppingDB;
 
 CREATE TABLE Users
 (
-Id INT,
+Id INT NOT NULL AUTO_INCREMENT,
 FirstName VARCHAR(45),
 LastName VARCHAR(45),
 Address VARCHAR(45),
@@ -24,7 +24,7 @@ PRIMARY KEY (Id)
 
 CREATE Table CreditCards
 (
-Id INT,
+Id INT NOT NULL AUTO_INCREMENT,
 CardHolderName VARCHAR(255),
 CreditCardNumber CHAR(20) NOT NULL,
 Balance DECIMAL(16, 2),
@@ -39,14 +39,14 @@ FOREIGN KEY (UserId) REFERENCES Users(Id)
 
 CREATE Table ProductCategories
 (
-Id INT,
+Id INT NOT NULL AUTO_INCREMENT,
 ProductCategory VARCHAR(255),
 PRIMARY KEY (Id)
 );
 
 CREATE Table Products
 (
-Id INT,
+Id INT NOT NULL AUTO_INCREMENT,
 ProductName VARCHAR(255),
 ProducCategoryIndex INT,
 ProductDescription BLOB,
@@ -65,7 +65,7 @@ FOREIGN KEY (ProducCategoryIndex) REFERENCES ProductCategories(Id)
 
 CREATE Table CustomerReviews
 (
-Id INT,
+Id INT NOT NULL AUTO_INCREMENT,
 ProductId INT,
 CustomerId INT,
 ReviewDate VARCHAR(40),
@@ -78,7 +78,7 @@ FOREIGN KEY (CustomerId) REFERENCES Users(Id)
 
 CREATE Table ProductQA
 (
-Id INT,
+Id INT NOT NULL AUTO_INCREMENT,
 ProductId INT,
 CustomerId INT,
 Question VARCHAR(255),
@@ -90,7 +90,7 @@ FOREIGN KEY (CustomerId) REFERENCES Users(Id)
 
 CREATE Table Orders
 (
-Id INT, 
+Id INT NOT NULL AUTO_INCREMENT, 
 CustomerId INT,
 TotalCost INT,
 OrderDate VARCHAR(40),
@@ -103,7 +103,7 @@ FOREIGN KEY (CustomerId) REFERENCES Users(Id)
 
 CREATE Table OrderItems
 (
-Id INT,
+Id INT NOT NULL AUTO_INCREMENT,
 OrderId INT,
 SellerId INT,
 ProductId INT,
