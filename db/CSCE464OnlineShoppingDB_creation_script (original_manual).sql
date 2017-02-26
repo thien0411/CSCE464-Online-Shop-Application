@@ -48,7 +48,7 @@ CREATE Table Products
 (
 Id INT NOT NULL AUTO_INCREMENT,
 ProductName VARCHAR(255),
-ProducCategoryIndex INT,
+ProductCategoryIndex INT,
 ProductDescription BLOB,
 Price INT,
 AvailableQuantity INT,
@@ -59,7 +59,7 @@ ProductVideosLinks BLOB,
 ProductThumbnail BLOB,
 PRIMARY KEY (Id),
 FOREIGN KEY (SellerId) REFERENCES Users(Id),
-FOREIGN KEY (ProducCategoryIndex) REFERENCES ProductCategories(Id)
+FOREIGN KEY (ProductCategoryIndex) REFERENCES ProductCategories(Id)
 );
 
 

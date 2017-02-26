@@ -1,5 +1,6 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,24 +9,35 @@ import util.Images;
 
 public class Product {
 	private String name;
-	private Integer category;
+	private String category;
 	private String sellerName;
 	private Double price;
 	private String thumbnail;
 
+	private Integer estimatedDeliveryDays;
 	private String description;
 	private List<String> photos;
 	private Integer availableQuantity;
 
-	public Product() {
+	public Product () {
 	}
 
-	public Product(String name, Integer category, String sellerName, Double price, String thumbnail) {
+	public Product (String name, String category, String sellerName, Double price, String thumbnail) {
 		this.name = name;
 		this.category = category;
 		this.sellerName = sellerName;
 		this.price = price;
 		this.thumbnail = thumbnail;
+	}
+	
+	public Product (String name, String sellerName, Double price, Integer estDeliveryDays, List<String> photos,
+			String description) {
+		this.name = name;
+		this.sellerName = sellerName;
+		this.price = price;
+		this.estimatedDeliveryDays = estDeliveryDays;
+		this.photos = photos;
+		this.description = description;
 	}
 
 	public String getName() {
@@ -36,11 +48,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public Integer getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Integer category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
@@ -66,6 +78,14 @@ public class Product {
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+
+	public Integer getEstimatedDeliveryDays() {
+		return estimatedDeliveryDays;
+	}
+
+	public void setEstimatedDeliveryDays(Integer estimatedDeliveryDays) {
+		this.estimatedDeliveryDays = estimatedDeliveryDays;
 	}
 
 	public String getDescription() {
@@ -127,6 +147,18 @@ public class Product {
 		return sb.toString();
 	}
 
+	public static List<Product> productSearch (String productQuery) {
+		List<Product> productList = new LinkedList<Product>();
+		Database db = new Database();
+		db.connect();
+		
+		/* TODO: Do! That! Search!*/
+		db.getProducts(productList, productQuery);
+		
+		db.close();
+		return productList;
+	}
+	
 	public String showDetails(HttpServletRequest request) {
 		/*Currently, this is hardcoded search results*/
 		/*TODO: Later change to be more dynamic*/
