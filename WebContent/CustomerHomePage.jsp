@@ -46,7 +46,7 @@
 				</li>
 			</ul>
 
-			<form class="navbar-form navbar-right" role="search" action="ProductSearchQuery" method="POST">
+			<form class="navbar-form navbar-right" role="search" action="ProductSearchQuery" method="post">
 				<div class="form-group">
           <label for="categories">Category</label>
           <select class="form-control" name="category">

@@ -1,20 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "util.*, model.Product" %>
-
-<%
-  String query = InputFormatting.safeFilter(request.getParameter("searchQuery"));
-  String category = request.getParameter("category");
-  Product p = new Product();
-  String results = p.showResults(request);
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Search - <%= query %></title>
+<title>Search - ${query}</title>
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -55,7 +47,7 @@
 				</li>
 			</ul>
 
-			<form class="navbar-form navbar-right" role="search" action="ProductSearchResults.jsp" method="POST">
+			<form class="navbar-form navbar-right" role="search" action="ProductSearchQuery" method="post">
 				<div class="form-group">
           <label for="categories">Category</label>
           <select class="form-control" name="category">
@@ -65,7 +57,7 @@
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
-					<input type="text" class="form-control" name="searchQuery" placeholder="Search" value="<%= query %>" required="required">
+					<input type="text" class="form-control" name="searchQuery" placeholder="Search" value="${query}" required="required">
 				</div>
 				<input type="button" class="btn btn-default" onclick="validateSearch(this.form)" value="Submit">
 			</form>
@@ -74,7 +66,7 @@
 </nav>
 
 <div class="container">
-  <h2>Search results for <i><%= query %></i></h2>
+  <h2>Search results for <i>${query}</i></h2>
   <table class="table">
     <thead>
       <tr>
@@ -87,7 +79,14 @@
       </tr>
     </thead>
     <tbody>
-      <%= results %>
+      <tr>
+        <td><img src="${productList[0].thumbnail}" alt="Thumbnail"></td>
+        <td>${productList[0].name}</td>
+        <td>${productList[0].category}</td>
+        <td>${productList[0].sellerName}</td>
+        <td>$${productList[0].price}</td>
+        <td>[Button]</td>
+      </tr>
     </tbody>
   </table>
 </div>

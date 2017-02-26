@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Database {
 	private Connection conn;
@@ -107,5 +108,37 @@ public class Database {
 		}
 		
 		return password;
+	}
+
+	public void getProducts(List<Product> productList, String productQuery) {
+		String query = "SELECT p.*, pc.*, u.Username FROM Products p "
+				+ "JOIN ProductCategories pc ON p.ProductCategoryIndex = pc.Id "
+				+ "JOIN Users u ON p.SellerId = u.Id "
+				+ "WHERE ProductName LIKE ?";
+		ResultSet rs;
+		Product p;
+		String name;
+		String category;
+		String sellerName;
+		Double price;
+		String thumbnail;
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, "%" + productQuery + "%");
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				name = rs.getString("ProductName");
+				category = rs.getString("ProductCategory");
+				sellerName = rs.getString("Username");
+				price = rs.getDouble("Price");
+				thumbnail = rs.getString("Thumbnail");
+				p = new Product(name, category, sellerName, price, thumbnail);
+				productList.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
