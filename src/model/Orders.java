@@ -1,25 +1,43 @@
 package model;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class Orders {
-		private Double total;
+		private Double orderTotal;
 		private Integer orderNumber;
-		private String orderDatel;
-		
-		
-		
-		public Orders(Double total, Integer orderNumber, String orderDatel) {
+		private String orderDate;
+		private List<Product> products;
+		private String shippingAddress;
+
+		public Orders(Double orderTotal, Integer orderNumber, String orderDate, List<Product> products,
+				String shippingAddress) {
 			super();
-			this.total = total;
+			this.orderTotal = orderTotal;
 			this.orderNumber = orderNumber;
-			this.orderDatel = orderDatel;
+			this.orderDate = orderDate;
+			this.products = products;
+			this.shippingAddress = shippingAddress;
 		}
-		public Double getTotal() {
-			return total;
+		
+		public List<Product> getProducts() {
+			return products;
 		}
-		public void setTotal(Double total) {
-			this.total = total;
+		public void setProducts(List<Product> products) {
+			this.products = products;
+		}
+		public String getShippingAddress() {
+			return shippingAddress;
+		}
+		public void setShippingAddress(String shippingAddress) {
+			this.shippingAddress = shippingAddress;
+		}
+		public Double getOrderTotal() {
+			return orderTotal;
+		}
+		public void setOrderTotal(Double orderTotal) {
+			this.orderTotal = orderTotal;
 		}
 		public Integer getOrderNumber() {
 			return orderNumber;
@@ -27,11 +45,15 @@ public class Orders {
 		public void setOrderNumber(Integer orderNumber) {
 			this.orderNumber = orderNumber;
 		}
-		public String getOrderDatel() {
-			return orderDatel;
+		public String getOrderDate() {
+			return orderDate;
 		}
-		public void setOrderDatel(String orderDatel) {
-			this.orderDatel = orderDatel;
+		public void setOrderDate(String orderDate) {
+			this.orderDate = orderDate;
 		}
+		 
+		
+		
+		
 		
 }
