@@ -51,8 +51,8 @@
 
 <div class="container">
   <div class="back">
-    <form action="ProductSearchResults.jsp">
-      <input type="hidden" name="searchQuery" value="cool item">
+    <form action="ProductSearchQuery" method="post">
+      <input type="hidden" name="searchQuery" value="${query}">
       <input class="btn btn-default" type="submit" value="&lt; Back">
     </form>
   </div>
@@ -67,7 +67,7 @@
       <p>Price: $${product.price}</p>
       <p>Seller: ${product.sellerName}</p>
       <p>Amount in Stock: ${product.availableQuantity}</p>
-      <p>Estimated Delivery Time: ${product.estimatedDeliveryDays}</p>
+      <p>Estimated Delivery Time: ${product.estimatedDeliveryDays} Days</p>
 
       <h3>Description</h3>
       <p>${product.description}</p>

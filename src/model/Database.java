@@ -153,11 +153,9 @@ public class Database {
 				+ "WHERE p.Id = ?";
 		Product p = null;
 		ResultSet rs;
-		
-		/*name, price, seller, stock avail, est delivery, descriptions*/
+
 		/*reviews*/
-		/*qa*/
-		
+		/*qa*/		
 		
 		try {
 			ps = conn.prepareStatement(query);
@@ -179,8 +177,10 @@ public class Database {
 				}
 			}
 			String description = rs.getString("ProductDescription");
+			Integer availableQuantity = rs.getInt("AvailableQuantity");
 			
 			p = new Product(name, sellerName, price, estDeliveryDays, photos, description);
+			p.setAvailableQuantity(availableQuantity);
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
