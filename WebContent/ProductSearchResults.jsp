@@ -85,7 +85,12 @@
         <td>${productList[0].category}</td>
         <td>${productList[0].sellerName}</td>
         <td>$${productList[0].price}</td>
-        <td>[Button]</td>
+        <td>
+          <form action="ProductSearchResults" method="get">
+            <input type="hidden" name="productId" value="${productList[0].id}">
+            <input type="submit" class="btn btn-default" value="View ProductDetails">
+          </form>
+        </td>
       </tr>
     </tbody>
   </table>

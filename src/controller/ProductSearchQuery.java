@@ -32,21 +32,13 @@ public class ProductSearchQuery extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = InputFormatting.safeFilter(request.getParameter("searchQuery"));
-		String category = request.getParameter("category");
+//		String category = request.getParameter("category");
 
 		request.setAttribute("query", query);
 		
 		List<Product> productList = Product.productSearch(query);
 
-		/**TODO: Get the matching products based on query
-		 * using Product model
-		 **/
-
-		/* Define database class and place the results in the request container */
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("productList", productList);
-		
+		request.setAttribute("productList", productList);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ProductSearchResults.jsp");
 		dispatcher.forward(request, response);

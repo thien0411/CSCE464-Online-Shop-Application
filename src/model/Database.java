@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Database {
@@ -111,7 +112,7 @@ public class Database {
 	}
 
 	public void getProducts(List<Product> productList, String productQuery) {
-		String query = "SELECT p.*, pc.*, u.Username FROM Products p "
+		String query = "SELECT p.*, pc.ProductCategory, u.Username FROM Products p "
 				+ "JOIN ProductCategories pc ON p.ProductCategoryIndex = pc.Id "
 				+ "JOIN Users u ON p.SellerId = u.Id "
 				+ "WHERE ProductName LIKE ?";
@@ -127,18 +128,64 @@ public class Database {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, "%" + productQuery + "%");
 			rs = ps.executeQuery();
-			
+
 			while (rs.next()) {
 				name = rs.getString("ProductName");
 				category = rs.getString("ProductCategory");
 				sellerName = rs.getString("Username");
 				price = rs.getDouble("Price");
-				thumbnail = rs.getString("Thumbnail");
+				thumbnail = rs.getString("ProductThumbnail");
 				p = new Product(name, category, sellerName, price, thumbnail);
+				p.setId(rs.getInt("Id"));
 				productList.add(p);
 			}
+
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Product getProductById(int productId) {
+		String query = "SELECT p.*, u.Username FROM Products p "
+				+ "JOIN ProductCategories pc ON p.ProductCategoryIndex = pc.Id "
+				+ "JOIN Users u ON p.SellerId = u.Id "
+				+ "WHERE p.Id = ?";
+		Product p = null;
+		ResultSet rs;
+		
+		/*name, price, seller, stock avail, est delivery, descriptions*/
+		/*reviews*/
+		/*qa*/
+		
+		
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, productId);
+			rs = ps.executeQuery();
+			
+			rs.next();
+			String name = rs.getString("ProductName");
+			String sellerName = rs.getString("Username");
+			Double price = rs.getDouble("Price");
+			Integer estDeliveryDays = rs.getInt("EstimatedDeliveryDays");
+			String photoLinks = rs.getString("ProductPhotosLinks");
+			List<String> photos = new LinkedList<String>();
+			String[] links;
+			if (photoLinks != null && photoLinks.length() != 0) {
+				links = photoLinks.split(",");
+				for (int i = 0; i < links.length; i++) {
+					photos.add(links[i]);
+				}
+			}
+			String description = rs.getString("ProductDescription");
+			
+			p = new Product(name, sellerName, price, estDeliveryDays, photos, description);
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return p;
 	}
 }

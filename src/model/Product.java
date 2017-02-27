@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import util.Images;
 
 public class Product {
+	private Integer id;
 	private String name;
 	private String category;
 	private String sellerName;
@@ -38,6 +39,14 @@ public class Product {
 		this.estimatedDeliveryDays = estDeliveryDays;
 		this.photos = photos;
 		this.description = description;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -151,14 +160,11 @@ public class Product {
 		List<Product> productList = new LinkedList<Product>();
 		Database db = new Database();
 		db.connect();
-		
-		/* TODO: Do! That! Search!*/
 		db.getProducts(productList, productQuery);
-		
 		db.close();
 		return productList;
 	}
-	
+
 	public String showDetails(HttpServletRequest request) {
 		/*Currently, this is hardcoded search results*/
 		/*TODO: Later change to be more dynamic*/
@@ -196,7 +202,7 @@ public class Product {
 		return sb.toString();
 	}
 
-	private String showRating(Integer stars) {
+	public String showRating(Integer stars) {
 		if (stars > 5 || stars < 0) {
 			return "?";
 		}
@@ -293,5 +299,18 @@ public class Product {
 		}
 
 		return sb.toString();
+	}
+
+
+	public static Product getProduct(int productId) {
+		Product p = null;
+
+		Database db = new Database();
+		db.connect();
+		
+		p = db.getProductById(productId);
+		
+		db.close();
+		return p;
 	}
 }

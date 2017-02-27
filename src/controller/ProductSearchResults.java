@@ -1,10 +1,14 @@
 package controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.Product;
 
 /**
  * Servlet implementation class ProductSearchResults
@@ -17,15 +21,20 @@ public class ProductSearchResults extends HttpServlet {
      */
     public ProductSearchResults() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int productId = Integer.parseInt(request.getParameter("productId"));
+
+		Product product = Product.getProduct(productId);
+
+		request.setAttribute("product", product);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ViewProductDetails.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

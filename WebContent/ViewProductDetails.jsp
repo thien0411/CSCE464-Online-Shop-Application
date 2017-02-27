@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "util.*, model.Product" %>
-
-<%
-  Product p = new Product();
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,13 +57,31 @@
     </form>
   </div>
   <div class="product-details row">
-    <%= p.showDetails(request) %>
+    <h2>Product Details for <i>${product.name}</i></h2>
+    
+    <div class="col-sm-4 col-md-5">
+      <img src="${product.photos[0]}">
+    </div>
+    
+    <div class="col-sm-8 col-md-7">
+      <p>Price: $${product.price}</p>
+      <p>Seller: ${product.sellerName}</p>
+      <p>Amount in Stock: ${product.availableQuantity}</p>
+      <p>Estimated Delivery Time: ${product.estimatedDeliveryDays}</p>
+
+      <h3>Description</h3>
+      <p>${product.description}</p>
+
+      <form action="UpdateShoppingCart" method="post">
+        <input type="submit" class="btn btn-primary" value="Add To Cart">
+      </form>
+    </div>
   </div>
 
   <div class="customer-QA">
     <h3>Customer Q and A</h3>
     <table class="table">
-      <%= p.showCustomerQA() %>
+      p.showCustomerQA()
      </table>
   </div>
 
@@ -76,7 +89,7 @@
     <h3>Reviews</h3>
 
     <table class="table">
-      <%= p.showCustomerReviews() %>
+      p.showCustomerReviews()
     </table>
   </div>
 </div>
