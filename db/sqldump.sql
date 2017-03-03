@@ -57,7 +57,7 @@ CREATE Table Products
   ProductName VARCHAR(255),
   ProductCategoryIndex INT,
   ProductDescription BLOB,
-  Price INT,
+  Price DOUBLE,
   AvailableQuantity INT,
   EstimatedDeliveryDays INT,
   SellerId INT,

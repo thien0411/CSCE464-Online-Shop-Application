@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Search - ${query}</title>
+<title>Search - <c:out value="${query}"/></title>
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -36,7 +37,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 					role="button" aria-haspopup="true" aria-expanded="false">
-						${userName} <span class="caret"></span>
+						<c:out value="${userName}" /> <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu">
@@ -66,7 +67,7 @@
 </nav>
 
 <div class="container">
-  <h2>Search results for <i>${query}</i></h2>
+  <h2>Search results for <i><c:out value="${query}"/></i></h2>
   <table class="table">
     <thead>
       <tr>
@@ -79,19 +80,21 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><img src="${productList[0].thumbnail}" alt="Thumbnail"></td>
-        <td>${productList[0].name}</td>
-        <td>${productList[0].category}</td>
-        <td>${productList[0].sellerName}</td>
-        <td>$${productList[0].price}</td>
-        <td>
-          <form action="ProductSearchResults" method="get">
-            <input type="hidden" name="productId" value="${productList[0].id}">
-            <input type="submit" class="btn btn-default" value="View ProductDetails">
-          </form>
-        </td>
-      </tr>
+      <c:forEach var="item" items="${productList}">
+        <tr>
+          <td><img src="${item.thumbnail}" alt="Thumbnail"></td>
+          <td>${item.name}</td>
+          <td>${item.category}</td>
+          <td>${item.sellerName}</td>
+          <td>$${item.price}</td>
+          <td>
+            <form action="ProductSearchResults" method="get">
+              <input type="hidden" name="productId" value="${item.id}">
+              <input type="submit" class="btn btn-default" value="View ProductDetails">
+            </form>
+          </td>
+        </tr>
+      </c:forEach>
     </tbody>
   </table>
 </div>
