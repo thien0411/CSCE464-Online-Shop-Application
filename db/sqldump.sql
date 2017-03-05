@@ -138,13 +138,34 @@ INSERT INTO ProductCategories (ProductCategory) VALUES ("Office");
 
 ## Products
 INSERT INTO Products (ProductName, ProductCategoryIndex, SellerId, ProductDescription, Price, AvailableQuantity, EstimatedDeliveryDays, ProductPhotosLinks, ProductThumbnail) VALUES
-  ("24-Inch Desktop Monitor", 2, 1, "This desktop monitor can serve many purposes. It accepts HDMI and has HD Audio output.",159.99, 25, 7, "http://www.publicdomainpictures.net/pictures/20000/nahled/computer-monitor-isolated-113001152897GC.jpg", "http://www.publicdomainpictures.net/pictures/20000/nahled/computer-monitor-isolated-113001152897GC.jpg");
+  ("24-Inch Desktop Monitor", 2, 1, "This desktop monitor can serve many purposes. It accepts HDMI and has HD Audio output.", 159.99, 25, 7, "http://www.publicdomainpictures.net/pictures/20000/nahled/computer-monitor-isolated-113001152897GC.jpg", "http://www.publicdomainpictures.net/pictures/20000/nahled/computer-monitor-isolated-113001152897GC.jpg");
 
 INSERT INTO Products (ProductName, ProductCategoryIndex, SellerId, ProductDescription, Price, AvailableQuantity, EstimatedDeliveryDays, ProductPhotosLinks, ProductThumbnail) VALUES
   ("Mini Desktop Tower", 2, 2, "This small tower is suitable for a child's first computer. It comes with a variety of stickers.", 79.99, 15, 7, "http://maxpixel.freegreatpicture.com/static/photo/1x/Hosting-Server-Computer-Workstation-158474.png", "http://maxpixel.freegreatpicture.com/static/photo/1x/Hosting-Server-Computer-Workstation-158474.png");
 
-SELECT * FROM ProductCategories;
-SELECT * FROM Users;
-SELECT * FROM Products;
+## ProductQA
+INSERT INTO ProductQA (ProductId, CustomerId, Question, Answer) VALUES
+  (1, 2, "So is this to use in the shower?", "No! This is an electronic. Please don't!");
+INSERT INTO ProductQA (ProductId, CustomerId, Question, Answer) VALUES
+  (1, 3, "How many times can this be dropped before breaking?", "Umm... why would you need that information? I wouldn't recommend that use of the product. I guess 3 times if you drop it about 2 feet above the ground.");
 
-# TODO: Add full entries for all the pages.
+INSERT INTO ProductQA (ProductId, CustomerId, Question, Answer) VALUES
+  (2, 1, "Is this able to run Minecraft? My nephew would love to have this if it were possible.", "I would think so. It's certainly powerful enough to do that.");
+INSERT INTO ProductQA (ProductId, CustomerId, Question, Answer) VALUES
+  (2, 3, "Is this durable enough to withstand lots of hits? My kids are kind of rowdy.", "Yup! The frame of the tower has been tested against rough environments, so it should be fine. I would advise that they don't hit it, so it won't become a habit for their future computers.");
+
+## Customer Reviews
+INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
+  (1, 2, "2017-02-15", 5, "So neat. Really worth the price!");
+INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
+  (1, 3, "2017-01-23", 3, "It was alright.");
+INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
+  (2, 1, "2016-12-15", 4, "My kids love this! I think they'll become interested in STEM subjects.");
+INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
+  (2, 3, "2016-11-25", 4, "It's pretty nice. I would have liked some other parts, but that's fine.");
+
+-- SELECT * FROM ProductCategories;
+-- SELECT * FROM Users;
+-- SELECT * FROM Products;
+-- SELECT * FROM ProductQA;
+-- SELECT * FROM CustomerReviews;

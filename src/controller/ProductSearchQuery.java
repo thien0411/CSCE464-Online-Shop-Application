@@ -35,7 +35,7 @@ public class ProductSearchQuery extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		session.setAttribute("query", query);
-		
+
 		List<Product> productList = Product.productSearch(query);
 
 		request.setAttribute("productList", productList);

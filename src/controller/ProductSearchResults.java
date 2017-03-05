@@ -30,9 +30,10 @@ public class ProductSearchResults extends HttpServlet {
 		int productId = Integer.parseInt(request.getParameter("productId"));
 
 		Product product = Product.getProduct(productId);
+		product.dbGetReviews();
 
 		request.setAttribute("product", product);
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("ViewProductDetails.jsp");
 		dispatcher.forward(request, response);
 	}

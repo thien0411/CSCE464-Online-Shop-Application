@@ -11,19 +11,19 @@ import java.util.List;
 public class Database {
 	private Connection conn;
 	private PreparedStatement ps;
-	
+
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-//	 TODO: Replace with a cse username and password
-//	static final String DB_URL = "jdbc:mysql://cse.unl.edu:3306/CSE_USERNAME"
+	//	 TODO: Replace with a cse username and password
+	//	static final String DB_URL = "jdbc:mysql://cse.unl.edu:3306/CSE_USERNAME"
 	static final String DB_URL = "jdbc:mysql://localhost:3306/CSCE464OnlineShoppingDB";
-	
+
 	static final String USER = "root";
 	static final String PASS = "pass";
-	
+
 	public Database () {
 	}
-	
+
 	public void connect () {
 		try {
 			//Register the JDBC driver
@@ -33,7 +33,7 @@ public class Database {
 			System.exit (-1);
 		}
 		try {
-			 //Open a connection
+			//Open a connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -57,13 +57,13 @@ public class Database {
 		String insert = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
 
 		try {
-		    ps = conn.prepareStatement(insert);
-		    ps.setString(1, user.getUserName());
-		    ps.setString(2, user.getPassword());
-		    ps.executeUpdate();
+			ps = conn.prepareStatement(insert);
+			ps.setString(1, user.getUserName());
+			ps.setString(2, user.getPassword());
+			ps.executeUpdate();
 		} catch (SQLException e) {
-	      e.printStackTrace();
-	    }
+			e.printStackTrace();
+		}
 	}
 
 
@@ -85,7 +85,7 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 
@@ -93,21 +93,21 @@ public class Database {
 		String password = null;
 		String query = "SELECT Password FROM Users where Username = ?";
 		ResultSet rs;
-		
+
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			
+
 			while (rs.next()) {
 				password = rs.getString("Password");
 			}
-			
+
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return password;
 	}
 
@@ -156,12 +156,12 @@ public class Database {
 
 		/*reviews*/
 		/*qa*/		
-		
+
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
 			rs = ps.executeQuery();
-			
+
 			rs.next();
 			String name = rs.getString("ProductName");
 			String sellerName = rs.getString("Username");
@@ -178,14 +178,51 @@ public class Database {
 			}
 			String description = rs.getString("ProductDescription");
 			Integer availableQuantity = rs.getInt("AvailableQuantity");
-			
+
 			p = new Product(name, sellerName, price, estDeliveryDays, photos, description);
 			p.setAvailableQuantity(availableQuantity);
+			p.setId(productId);
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return p;
+	}
+
+	public List<Review> getReviewsByProductId (int productId) {
+		List<Review> reviews = new LinkedList<Review>();
+		String query = "SELECT cr.*, u.Username FROM CustomerReviews cr "
+				+ "JOIN Users u on cr.CustomerId = u.Id "
+				+ "where cr.ProductId = ?";
+		ResultSet rs;
+
+		Review review = null;
+		Users customer = null;
+		String date = null;
+		Integer rating = null;
+		String feedback = null;
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, productId);
+			rs = ps.executeQuery();
+
+			while(rs.next()) {
+				customer = new Users(rs.getString("Username"));
+				date = rs.getString("ReviewDate");
+				rating = rs.getInt("Rating");
+				feedback = rs.getString("Review");
+
+				review = new Review(customer, date, rating, feedback);
+				reviews.add(review);
+			}
+
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return reviews;
 	}
 }

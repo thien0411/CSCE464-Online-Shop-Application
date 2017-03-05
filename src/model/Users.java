@@ -11,10 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class Users {
-	
 	private String userName;
 	private String password;
-	
+
+	public Users (String userName) {
+		this.userName = userName;
+	}
+
+	public Users(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+	}
+
+	/* Getters/Setters */
 	public String getUserName() {
 		return userName;
 	}
@@ -27,16 +36,12 @@ public class Users {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Users(String userName, String password) {
-		super();
-		this.userName = userName;
-		this.password = password;
-	}
-	
+
+	/* Methods */
 	public void registerUser(Users aUser, String propFilePath) {
 		Properties p = new Properties();
 		FileInputStream fis = null;
-		
+
 		try {
 			fis = new FileInputStream(propFilePath);
 			p.load(fis);
@@ -56,7 +61,7 @@ public class Users {
 			}
 		}
 	}
-	
+
 	public void registerUser() {
 		Database db = new Database();
 		db.connect();
@@ -69,12 +74,12 @@ public class Users {
 		Properties p = new Properties();
 		FileInputStream fis = null;
 		String redirect = "Registration.jsp";
-		
+
 		try {
 			fis = new FileInputStream(propFilePath);
-			
+
 			p.load(fis);
-				
+
 			// Check whether the username exists or not
 			if(!p.containsKey(userName)) {			
 				// Link-redirection
@@ -98,18 +103,18 @@ public class Users {
 				}
 			}
 		}
-		
+
 		return redirect;
 	}
-	
+
 	public String validateUser () {
 		String redirect = "Registration.jsp";
 		boolean exists = this.userExists();
 		boolean passMatch = false;
-		
+
 		Database db = new Database();
 		db.connect();
-		
+
 		if (!exists) {
 			redirect = "Registration.jsp";
 		} else {
@@ -126,16 +131,16 @@ public class Users {
 
 		return redirect;
 	}
-	
+
 	public boolean userExists(String username, String propFilePath, HttpServletResponse response) {
 		Properties p = new Properties();
 		FileInputStream fis = null;
 		boolean result = false;
-		
+
 		try {
 			fis = new FileInputStream(propFilePath);
 			p.load(fis);
-				
+
 			// Check whether the username exists or not
 			result = p.containsKey(userName);
 		} catch (Exception e) {
@@ -149,22 +154,22 @@ public class Users {
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public boolean userExists () {
 		boolean result = false;
-		
+
 		Database db = new Database();
 		db.connect();
 		result = db.userExists(this.userName);
 		db.close();
-		
+
 		return result;
 	}
-	
+
 	// removeUser
-	
-	
+
+
 }

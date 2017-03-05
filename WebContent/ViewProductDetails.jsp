@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,6 +74,14 @@
       <p>${product.description}</p>
 
       <form action="UpdateShoppingCart" method="post">
+        <input type="hidden" name="productId" value="${product.id}">
+        <select name="quantity" class="form-control quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
         <input type="submit" class="btn btn-primary" value="Add To Cart">
       </form>
     </div>
@@ -81,15 +90,45 @@
   <div class="customer-QA">
     <h3>Customer Q and A</h3>
     <table class="table">
-      p.showCustomerQA()
-     </table>
+      <c:forEach var="qa" items="${QAList}">
+        <tr>
+          <td>
+            <h3><c:out value="${qa.question}"/></h3>
+            <p><c:out value="${qa.answer}"/> - <i><c:out value="${product.sellerName}"/></i></p>
+          </td>
+        </tr>
+      </c:forEach>
+    </table>
   </div>
 
   <div class="customer-review">
     <h3>Reviews</h3>
 
     <table class="table">
-      p.showCustomerReviews()
+      <tr>
+        <td>
+          <h3>Overall Rating</h3>
+          
+          <div class="rating">
+            <c:out value="${product.averageStars()}" escapeXml="false"/>
+          </div>
+        </td>
+      </tr>
+      
+      <c:forEach var="review" items="${product.reviews}">
+        <tr>
+          <td>
+            <h4><c:out value="${review.customer.userName}" /></h4>
+            <p><c:out value="${review.formattedDate()}"/></p>
+            
+            <div class="rating">
+              <c:out value="${review.stars()}" escapeXml="false"/>
+            </div>
+
+            <p><c:out value="${review.review}" /></p>
+          </td>
+        </tr>
+      </c:forEach>
     </table>
   </div>
 </div>

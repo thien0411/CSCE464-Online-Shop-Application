@@ -88,7 +88,7 @@
           <td>${item.sellerName}</td>
           <td>$${item.price}</td>
           <td>
-            <form action="ProductSearchResults" method="get">
+            <form action="ProductSearchResults" method="post">
               <input type="hidden" name="productId" value="${item.id}">
               <input type="submit" class="btn btn-default" value="View ProductDetails">
             </form>
