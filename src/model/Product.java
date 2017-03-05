@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,8 +20,11 @@ public class Product {
 	private String description;
 	private List<String> photos;
 	private Integer availableQuantity;
-	
+
 	private List<Review> reviews;
+	private List<QuestionAnswer> qaList;
+	
+	private Integer quantityRequested;
 
 	public Product () {
 	}
@@ -32,7 +36,7 @@ public class Product {
 		this.price = price;
 		this.thumbnail = thumbnail;
 	}
-	
+
 	public Product (String name, String sellerName, Double price, Integer estDeliveryDays, List<String> photos,
 			String description) {
 		this.name = name;
@@ -132,6 +136,22 @@ public class Product {
 		this.reviews = reviews;
 	}
 
+	public List<QuestionAnswer> getQaList() {
+		return qaList;
+	}
+
+	public void setQaList(List<QuestionAnswer> qaList) {
+		this.qaList = qaList;
+	}
+
+	public Integer getQuantityRequested() {
+		return quantityRequested;
+	}
+
+	public void setQuantityRequested(Integer quantityRequested) {
+		this.quantityRequested = quantityRequested;
+	}
+
 	/* Methods */
 	public static List<Product> productSearch (String productQuery) {
 		List<Product> productList = new LinkedList<Product>();
@@ -141,28 +161,23 @@ public class Product {
 		db.close();
 		return productList;
 	}
-
-	public String showCustomerQA() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("<tr><td>");
-		sb.append("<h4>- So is this product waterproof, or should I just avoid taking it in the shower?</h4>");
-		sb.append("<p>Umm. You probably shouldn't do that. -<i>RealSeller123</i></p>");
-		sb.append("</td></tr>");
-
-		return sb.toString();
-	}
 	
+	public String formattedPrice () {
+		DecimalFormat df = new DecimalFormat(".##");
+		return df.format(this.price);
+	}
+
 	public String averageStars () {
 		int size = this.reviews.size();
 		int total = 0;
 		int averageReview = 0;
-		
+
 		for (int i = 0; i < size; i++) {
 			total += this.reviews.get(i).getRating();
 		}
-		
+
 		if (size > 0) averageReview = total/size;
-		
+
 		return Review.stars(averageReview);
 	}
 
@@ -196,7 +211,7 @@ public class Product {
 
 		return sb.toString();
 	}
-	
+
 	public String showTransaction() {
 		/*
 		 * Name
@@ -217,26 +232,38 @@ public class Product {
 
 		return sb.toString();
 	}
-
+	
+	public boolean validQuantity () {
+		return this.quantityRequested <= this.availableQuantity;
+	}
 
 	public static Product getProduct(int productId) {
 		Product p = null;
 
 		Database db = new Database();
 		db.connect();
-		
+
 		p = db.getProductById(productId);
-		
+
 		db.close();
 		return p;
 	}
-	
+
 	public void dbGetReviews () {
 		Database db = new Database();
 		db.connect();
-		
+
 		this.reviews = db.getReviewsByProductId(this.id);
-		
+
+		db.close();
+	}
+
+	public void dbGetQA () {
+		Database db = new Database();
+		db.connect();
+
+		this.qaList = db.getQAByProductId(this.id);
+
 		db.close();
 	}
 }

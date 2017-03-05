@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "util.*, model.Product" %>
-
-<%
-  Product p = new Product();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +35,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
-            ${userName} <span class="caret"></span>
+            <c:out value="${userName}"/> <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
@@ -62,17 +58,33 @@
       <th>Name</th>
       <th>Seller Name</th>
       <th>Quantity</th>
-      <th>Total price</th>
-      <th>Estimated Delivery Date</th>
+      <th>Price (Individual)</th>
+      <th>Estimated Delivery Days</th>
       <td></td>
     </tr>
-    <%= p.showShoppingCart(request) %>
+      <c:forEach var="item" items="${shoppingCart}">
+        <tr>
+          <td><img src="${item.thumbnail}" alt="Thumbnail"></td>
+          <td><c:out value="${item.name}"/></td>
+          <td><c:out value="${item.sellerName}"/></td>
+          <td><c:out value="${item.quantityRequested}" /></td>
+          <td>$<c:out value="${item.formattedPrice()}"/></td>
+          <td><c:out value="${item.estimatedDeliveryDays}"/></td>
+          <td>
+            <form action="UpdateShoppingCart" method="post">
+              <input type="hidden" name="productId" value="${item.id}">
+              <input type="hidden" name="action" value="delete">
+              <input type="submit" class="btn btn-default" value="Delete Item">
+            </form>
+          </td>
+        </tr>
+      </c:forEach>
     <tr>
-      <td colspan="7"><h3>Subtotal: $45.75</h3></td>
+      <td colspan="7"><h3>Total: $<c:out value="${cartTotal}"/></h3></td>
     </tr>
   </table>
 
-  <form action="CustomerTransaction.jsp">
+  <form action="CustomerTransaction.jsp" method="post">
     <input class="btn btn-primary" type="submit" value="Checkout">
   </form>
 </div>

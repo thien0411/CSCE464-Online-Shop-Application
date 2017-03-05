@@ -31,6 +31,7 @@ public class ProductSearchResults extends HttpServlet {
 
 		Product product = Product.getProduct(productId);
 		product.dbGetReviews();
+		product.dbGetQA();
 
 		request.setAttribute("product", product);
 

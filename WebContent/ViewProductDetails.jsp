@@ -36,7 +36,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 					role="button" aria-haspopup="true" aria-expanded="false">
-						${userName} <span class="caret"></span>
+						<c:out value="${userName}"/> <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu">
@@ -65,7 +65,7 @@
     </div>
     
     <div class="col-sm-8 col-md-7">
-      <p>Price: $${product.price}</p>
+      <p>Price: $${product.formattedPrice()}</p>
       <p>Seller: ${product.sellerName}</p>
       <p>Amount in Stock: ${product.availableQuantity}</p>
       <p>Estimated Delivery Time: ${product.estimatedDeliveryDays} Days</p>
@@ -75,6 +75,9 @@
 
       <form action="UpdateShoppingCart" method="post">
         <input type="hidden" name="productId" value="${product.id}">
+        <input type="hidden" name="action" value="add">
+        
+        Quantity:
         <select name="quantity" class="form-control quantity">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -82,6 +85,7 @@
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
+        <br>
         <input type="submit" class="btn btn-primary" value="Add To Cart">
       </form>
     </div>
@@ -90,11 +94,20 @@
   <div class="customer-QA">
     <h3>Customer Q and A</h3>
     <table class="table">
-      <c:forEach var="qa" items="${QAList}">
+      <c:forEach var="qa" items="${product.qaList}">
         <tr>
           <td>
-            <h3><c:out value="${qa.question}"/></h3>
-            <p><c:out value="${qa.answer}"/> - <i><c:out value="${product.sellerName}"/></i></p>
+            <h4>
+              <i>"<c:out value="${qa.question}"/>"</i>
+              -
+              <c:out value="${qa.customer.userName}" />
+            </h4>
+            
+            <p>
+              "<c:out value="${qa.answer}"/>"
+              -
+              <i><c:out value="${product.sellerName}"/></i>
+            </p>
           </td>
         </tr>
       </c:forEach>
@@ -107,7 +120,7 @@
     <table class="table">
       <tr>
         <td>
-          <h3>Overall Rating</h3>
+          <h4>Overall Rating</h4>
           
           <div class="rating">
             <c:out value="${product.averageStars()}" escapeXml="false"/>
@@ -118,14 +131,14 @@
       <c:forEach var="review" items="${product.reviews}">
         <tr>
           <td>
-            <h4><c:out value="${review.customer.userName}" /></h4>
+            <h4><c:out value="${review.customer.userName}"/></h4>
             <p><c:out value="${review.formattedDate()}"/></p>
             
             <div class="rating">
               <c:out value="${review.stars()}" escapeXml="false"/>
             </div>
 
-            <p><c:out value="${review.review}" /></p>
+            <p><c:out value="${review.review}"/></p>
           </td>
         </tr>
       </c:forEach>

@@ -152,10 +152,7 @@ public class Database {
 				+ "JOIN Users u ON p.SellerId = u.Id "
 				+ "WHERE p.Id = ?";
 		Product p = null;
-		ResultSet rs;
-
-		/*reviews*/
-		/*qa*/		
+		ResultSet rs;		
 
 		try {
 			ps = conn.prepareStatement(query);
@@ -169,18 +166,21 @@ public class Database {
 			Integer estDeliveryDays = rs.getInt("EstimatedDeliveryDays");
 			String photoLinks = rs.getString("ProductPhotosLinks");
 			List<String> photos = new LinkedList<String>();
-			String[] links;
+
 			if (photoLinks != null && photoLinks.length() != 0) {
-				links = photoLinks.split(",");
+				String[] links = photoLinks.split(",");
 				for (int i = 0; i < links.length; i++) {
 					photos.add(links[i]);
 				}
 			}
+
 			String description = rs.getString("ProductDescription");
 			Integer availableQuantity = rs.getInt("AvailableQuantity");
+			String thumbnail = rs.getString("ProductThumbnail");
 
 			p = new Product(name, sellerName, price, estDeliveryDays, photos, description);
 			p.setAvailableQuantity(availableQuantity);
+			p.setThumbnail(thumbnail);
 			p.setId(productId);
 			rs.close();
 		} catch (SQLException e) {
@@ -224,5 +224,39 @@ public class Database {
 		}
 
 		return reviews;
+	}
+
+	public List<QuestionAnswer> getQAByProductId (int productId) {
+		List<QuestionAnswer> qaList = new LinkedList<QuestionAnswer>();
+		String query = "SELECT pqa.*, u.Username FROM ProductQA pqa "
+				+ "JOIN Users u on pqa.CustomerId = u.Id "
+				+ "WHERE pqa.ProductId = ?";
+		ResultSet rs;
+
+		QuestionAnswer qa = null;
+		Users customer = null;
+		String question = null;
+		String answer = null;
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, productId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				customer = new Users(rs.getString("Username"));
+				question = rs.getString("Question");
+				answer = rs.getString("Answer");
+
+				qa = new QuestionAnswer(customer, question, answer);
+				qaList.add(qa);
+			}
+
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return qaList;
 	}
 }

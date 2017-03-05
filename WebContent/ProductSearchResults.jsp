@@ -83,10 +83,10 @@
       <c:forEach var="item" items="${productList}">
         <tr>
           <td><img src="${item.thumbnail}" alt="Thumbnail"></td>
-          <td>${item.name}</td>
-          <td>${item.category}</td>
-          <td>${item.sellerName}</td>
-          <td>$${item.price}</td>
+          <td><c:out value="${item.name}"/></td>
+          <td><c:out value="${item.category}"/></td>
+          <td><c:out value="${item.sellerName}"/></td>
+          <td>$<c:out value="${item.formattedPrice()}"/></td>
           <td>
             <form action="ProductSearchResults" method="post">
               <input type="hidden" name="productId" value="${item.id}">
