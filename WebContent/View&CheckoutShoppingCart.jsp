@@ -80,7 +80,7 @@
         </tr>
       </c:forEach>
     <tr>
-      <td colspan="7"><h3>Total: $<c:out value="${cartTotal}"/></h3></td>
+      <td colspan="7"><h3>Total: $<c:out value="${formattedCartTotal}"/></h3></td>
     </tr>
   </table>
 

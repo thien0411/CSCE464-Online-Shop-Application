@@ -25,6 +25,8 @@ public class Product {
 	private List<QuestionAnswer> qaList;
 	
 	private Integer quantityRequested;
+	
+	private Boolean isShipped;
 
 	public Product () {
 	}
@@ -150,6 +152,14 @@ public class Product {
 
 	public void setQuantityRequested(Integer quantityRequested) {
 		this.quantityRequested = quantityRequested;
+	}
+
+	public Boolean getIsShipped() {
+		return isShipped;
+	}
+
+	public void setIsShipped(Boolean isShipped) {
+		this.isShipped = isShipped;
 	}
 
 	/* Methods */

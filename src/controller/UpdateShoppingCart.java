@@ -34,11 +34,11 @@ public class UpdateShoppingCart extends HttpServlet {
 		Integer productId = Integer.parseInt(request.getParameter("productId"));
 		String quantityString = request.getParameter("quantity");
 		Integer quantity = 0;
-		
+
 		Double total = 0.00;
-		
+
 		Product p = null;
-		
+
 		if (action.equals("add") && quantityString != null && !quantityString.trim().equals("")) {
 			quantity = Integer.parseInt(quantityString);
 		}
@@ -52,12 +52,12 @@ public class UpdateShoppingCart extends HttpServlet {
 			shoppingCart = new LinkedList<Product>();
 			session.setAttribute("shoppingCart", shoppingCart);
 		}
-		
+
 		if (action.equals("add")) {
 			/* Add a product, if quantity is available */
 			p = Product.getProduct(productId);
 			p.setQuantityRequested(quantity);
-			
+
 			if (p.validQuantity()) shoppingCart.add(p);
 		} else if (action.equals("delete")) {
 			/* Find and remove the item */
@@ -68,16 +68,17 @@ public class UpdateShoppingCart extends HttpServlet {
 				}
 			}
 		}
-		
+
 		/* Calculate total and place in session */
 		DecimalFormat df = new DecimalFormat(".##");
 
 		for (Product item : shoppingCart) {
 			total += item.getPrice() * (double)item.getQuantityRequested();
 		}
-		
-		session.setAttribute("cartTotal", df.format(total));
-		
+
+		session.setAttribute("cartTotal", total);
+		session.setAttribute("formattedCartTotal", df.format(total));
+
 		response.sendRedirect("View&CheckoutShoppingCart.jsp");
 	}
 

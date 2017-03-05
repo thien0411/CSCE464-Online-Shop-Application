@@ -113,7 +113,7 @@ CREATE Table OrderItems
   OrderId INT,
   SellerId INT,
   ProductId INT,
-  ProductPrice INT,
+  ProductPrice DOUBLE,
   Quantity INT,
   ShippingStatus TINYINT(1), /*Shipped or Not yet shipped*/
   ShippingRefNo INT,
