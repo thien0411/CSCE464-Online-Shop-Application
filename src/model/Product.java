@@ -4,10 +4,6 @@ import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import util.Images;
-
 public class Product {
 	private Integer id;
 	private String name;
@@ -189,58 +185,6 @@ public class Product {
 		if (size > 0) averageReview = total/size;
 
 		return Review.stars(averageReview);
-	}
-
-	public String showShoppingCart(HttpServletRequest request) {
-		/*
-		 * Thumbnail
-		 * Name
-		 * Seller Name
-		 * Quantity
-		 * Total Price
-		 * Delivery Date
-		 * (Empty) for buttons*/
-
-		String thumbnail = Images.resolveExtension(request, "img/wolves");
-
-		StringBuilder sb = new StringBuilder();
-
-		for(int i = 0; i < 3; i++) {
-			sb.append("<tr>");
-			sb.append("<td><img src=\"");
-			sb.append(thumbnail);
-			sb.append("\"></td>");
-			sb.append("<td>Totally Real Product " + (i+1) + "</td>");
-			sb.append("<td>RealSeller123</td>");
-			sb.append("<td>1</td>");
-			sb.append("<td>$15.25</td>");
-			sb.append("<td>7 to 10 buisness days</td>");
-			sb.append("<td><button class=\"btn btn-default\">Delete Item</button></td>");
-			sb.append("</tr>\n");
-		}
-
-		return sb.toString();
-	}
-
-	public String showTransaction() {
-		/*
-		 * Name
-		 * Seller Name
-		 * Quantity
-		 * Total Price*/
-
-		StringBuilder sb = new StringBuilder();
-
-		for(int i = 0; i < 3; i++) {
-			sb.append("<tr>");
-			sb.append("<td>Totally Real Product " + (i+1) + "</td>");
-			sb.append("<td>RealSeller123</td>");
-			sb.append("<td>1</td>");
-			sb.append("<td>$15.25</td>");
-			sb.append("</tr>\n");
-		}
-
-		return sb.toString();
 	}
 	
 	public boolean validQuantity () {

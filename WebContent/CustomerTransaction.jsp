@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "util.*, model.Product" %>
-
-<%
-  Product p = new Product();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +35,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
-            ${userName} <span class="caret"></span>
+            <c:out value="${userName}"/> <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
@@ -60,29 +56,42 @@
     <tr>
       <th>Name</th>
       <th>Quantity</th>
-      <th>Total Price</th>
+      <th>Price (Individual)</th>
       <th>Seller Name</th>
     </tr>
-    <%= p.showTransaction() %>
+
+    <c:forEach var="item" items="${shoppingCart}">
+      <tr>
+        <td><c:out value="${item.name}"/></td>
+        <td><c:out value="${item.quantityRequested}"/></td>
+        <td><c:out value="${item.formattedPrice()}"/></td>
+        <td><c:out value="${item.sellerName}"/></td>
+      </tr>
+    </c:forEach>
+
     <tr>
-      <td colspan="4"><h3>Subtotal: $45.75</h3></td>
+      <td colspan="4"><h3>Total: <c:out value="${formattedCartTotal}"/></h3></td>
     </tr>
   </table>
 
   <h3>Payment Information</h3>
 
-  <form style="max-width: 30em;" action="CustomerTransactionConfirmation.jsp" method="post">
+  <form style="max-width: 30em;"
+    action="CustomerTransactionConfirmation" method="post">
     <div class="form-group">
       First Name:
-      <input type="text" class="form-control" name="firstName" placeholder="First Name" value="Lank">
+      <input type="text" class="form-control" name="firstName"
+        placeholder="First Name">
     </div>
 
     <div class="form-group">
       Last Name:
-      <input type="text" class="form-control" name="lastName" placeholder="Last Name" value="Hoffie">
+      <input type="text" class="form-control" name="lastName"
+        placeholder="Last Name">
     </div>
 
     <div class="form-group">
+      Card Type:
       <select class="form-control" name="cardType">
         <option value="visa">Visa</option>
         <option value="master">Master</option>
@@ -92,34 +101,41 @@
 
     <div class="form-group">
       Card Number:
-      <input type="text" class="form-control" name="cardNumber" placeholder="Card Number" value="1234 1234 1234 1234">
+      <input type="text" class="form-control" name="cardNumber"
+        placeholder="Card Number" maxlength="16">
     </div>
 
     <div class="form-group">
       Security Code:
-      <input type="text" class="form-control" name="securityCode" placeholder="Security Code" value="123">
+      <input type="text" class="form-control" name="securityCode"
+        placeholder="Security Code" maxlength="3">
     </div>
 
     <div class="form-group">
       Card Expiration:
-      <input type="month" class="form-control" name="expireMonth" placeholder="Card Expiration" value="2018-06">
+      <input type="month" class="form-control" name="expireMonth"
+        placeholder="Card Expiration">
     </div>
 
     <div class="form-group">
       Billing Address:
-      <input type="text" class="form-control" name="billingAddress" placeholder="Billing Address" value="789 Real Street  Some, State 11223">
+      <input type="text" class="form-control" name="billingAddress"
+        placeholder="Billing Address">
     </div>
 
     <div class="form-group">
       Shipping Address:
-      <input type="text" class="form-control" name="shippingAddress" placeholder="Shipping Address" value="789 Real Street  Some, State 11223">
+      <input type="text" class="form-control" name="shippingAddress"
+        placeholder="Shipping Address">
     </div>
 
-    <input type="submit" class="btn btn-primary" value="Confirm Payment"><br><br>
+    <input type="submit" class="btn btn-primary" value="Confirm Payment">
+    <br><br>
   </form>
 
-  <form action="View&CheckoutShoppingCart.jsp">
+  <form action="View&CheckoutShoppingCart.jsp" method="post">
     <input type="submit" class="btn btn-default" value="Cancel Payment">
+    <br><br>
   </form>
 </div>
 

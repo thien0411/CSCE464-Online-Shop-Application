@@ -31,6 +31,7 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(3600);  // One Hour
 		session.setAttribute("userName", userName);
 		
 		Users userLogin = new Users(userName, password);

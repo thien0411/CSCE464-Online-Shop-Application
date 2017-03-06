@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Product Details - Cool Item</title>
+<title>Product Details - <c:out value="${product.name}"/></title>
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -58,7 +58,7 @@
     </form>
   </div>
   <div class="product-details row">
-    <h2>Product Details for <i>${product.name}</i></h2>
+    <h2>Product Details for <i><c:out value="${product.name}"/></i></h2>
     
     <div class="col-sm-4 col-md-5">
       <img src="${product.photos[0]}">

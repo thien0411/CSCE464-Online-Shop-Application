@@ -1,5 +1,100 @@
 package model;
 
 public class Transactions {
+	private String firstName;
+	private String lastName;
+	private String cardType;
+	private Integer cardNumber;
+	private Integer securityCode;
+	private String expireMonth;
+	private String billingAddress;
+	private String shippingAddress;
 
+	public Transactions() {
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
+
+	public Integer getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(Integer cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public Integer getSecurityCode() {
+		return securityCode;
+	}
+
+	public void setSecurityCode(Integer securityCode) {
+		this.securityCode = securityCode;
+	}
+
+	public String getExpireMonth() {
+		return expireMonth;
+	}
+
+	public void setExpireMonth(String expireMonth) {
+		this.expireMonth = expireMonth;
+	}
+
+	public String getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(String billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	public String getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(String shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public boolean validData () {
+		boolean isValid = true;
+
+		if (this.cardNumber == 0 || this.securityCode == 0) isValid = false;
+
+		if (this.firstName == null || this.firstName.trim().equals("")) isValid = false;
+		if (this.lastName == null || this.lastName.trim().equals("")) isValid = false;
+		if (this.cardType == null || this.cardType.trim().equals("")) isValid = false;
+		if (this.expireMonth == null || this.expireMonth.trim().equals("")) isValid = false;
+		if (this.billingAddress == null || this.billingAddress.trim().equals("")) isValid = false;
+		if (this.shippingAddress == null || this.shippingAddress.trim().equals("")) isValid = false;
+
+		return isValid;
+	}
+	
+	public boolean sufficientFunds () {
+		boolean hasFunds = true;
+		
+		return hasFunds;
+	}
 }

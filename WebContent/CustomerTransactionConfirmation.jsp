@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "util.*, model.Product" %>
-
-<%
-  String firstName = request.getParameter("firstName");
-  String lastName = request.getParameter("lastName");
-  String billingAddress = request.getParameter("billingAddress");
-  String shippingAddress = request.getParameter("shippingAddress");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +35,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
-            ${userName} <span class="caret"></span>
+            <c:out value="${userName}"/> <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
@@ -57,17 +50,34 @@
 </nav>
 
 <div class="container">
-  <h2>Your order has been placed!</h2>
+  <h2>
+    <c:choose>
+      <c:when test="${!transaction.validData()}">
+        <p>Incorrect/missing data</p>
+      </c:when>
+      <c:when test="${!transaction.sufficientFunds()}">
+        <p>Insufficient funds.</p>
+      </c:when>
+      <c:otherwise>
+        Your order has been placed!
+      </c:otherwise>
+    </c:choose>
+  </h2>
+  
+  <!-- TODO: Interact with Orders model and get number -->
 
   <div class="transaction-info">
     <h3>Cardholder Name</h3>
-    <p><%= lastName %>, <%= firstName %></p>
+    <p>
+      <c:out value="${transaction.lastName}"/>,
+      <c:out value="${transaction.firstName}"/>
+    </p>
 
     <h3>Shipping Address</h3>
-    <p><%= shippingAddress %></p>
+    <p><c:out value="${transaction.shippingAddress}"/></p>
 
     <h3>Billing Address</h3>
-    <p><%= billingAddress %></p>
+    <p><c:out value="${transaction.billingAddress}"/></p>
   </div>
 </div>
 
