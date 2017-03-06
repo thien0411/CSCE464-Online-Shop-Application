@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,49 +54,36 @@
 </nav>
 
 <div class="container">
-	<h2>Order Number: 123123</h2>
+	<h2>Order Number: ${order.orderNumber}</h2>
 
   <table class="table">
+	<c:forEach var="item" items="${productList}">
     <tr>
       <td class="order-item">
-      	<h3>Product Name: Product 1</h3>
-      	<p>Product quantity: 10</p>
-      	<p>Total Price: $100.00</p>
-      	<p>Seller Name: ThienNguyen</p>
-      	<p>Shipping Status: Currently being delivered</p>
-
+        <h3>Product Name: ${item.name}</h3>
+        <p>Product quantity: ${item.quantityRequested}</p>
+        <p>Total Price: ${item.price}</p>
+        <p>Seller Name: ${item.sellerName}</p>
+        <p>Shipping Status: $(item.isShipped)</p>
       </td>
       <td>
-        <form action="ViewProductDetails.jsp">
-          <input type="submit" class="btn btn-default" value="View Product Details">
+        <form action="ProductSearchResults" method="post">
+              <input type="hidden" name="productId" value="${item.id}">
+              <input type="submit" class="btn btn-default" value="View ProductDetails">
         </form>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="order-item">
-        <h3>Product Name: Product 2</h3>
-        <p>Product quantity: 10</p>
-        <p>Total Price: $100.00</p>
-        <p>Seller Name: Amazon</p>
-        <p>Shipping Status: Waiting to be shipped</p>
-      </td>
-      <td>
-        <form action="ViewProductDetails.jsp">
-          <input type="submit" class="btn btn-default" value="View Product Details">
-        </form>
-
+		<br>
         <form action="CancelOrder.jsp">
           <input type="submit" class="btn btn-default" value="Cancel Item">
         </form>
       </td>
     </tr>
+    </c:forEach>
   </table>
 
   <div class="order-details">
-    <p>Order Total: 10000.00</p>
-    <p>Ordered Date: 12/01/2017</p>
-    <p>Shipping Address: 508N 23rd St Lincoln Ne 68503</p>
+    <p>Order Total: ${order.orderTotal}</p>
+    <p>Ordered Date: ${order.orderDates}</p>
+    <p>Shipping Address: ${order.shippingAddress}</p>
   </div>
 </div>
 

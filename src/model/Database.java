@@ -259,4 +259,55 @@ public class Database {
 
 		return qaList;
 	}
+	
+	public int getUserIdByUsername (String userName){
+		String query = "SELECT Id from Users where Username = ?";
+		int id = 0 ;
+		ResultSet rs;
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, userName);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				id = rs.getInt("Id");
+			}
+
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return id;
+		
+	}
+	
+	public void getOrderHistory(List<Orders> orderList, int userId) {
+		String query = "SELECT o.Id, o.TotalCost, o.OrderDate FROM Orders as o Where CustomerID = ?";
+		ResultSet rs;
+		Orders o;
+		Double orderTotal;
+		Integer orderNumber;
+		String orderDate;
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, userId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				orderTotal = rs.getDouble("TotalCost");
+				orderNumber = rs.getInt("Id");
+				orderDate = rs.getString("OrderDate");
+				
+				o = new Orders(orderTotal, orderNumber, orderDate);
+				orderList.add(o);
+			}
+
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

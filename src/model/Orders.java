@@ -1,5 +1,6 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Orders {
@@ -9,6 +10,13 @@ public class Orders {
 	private List<Product> products;
 	private String shippingAddress;
 
+	public Orders(Double orderTotal, Integer orderNumber, String orderDate) {
+		super();
+		this.orderTotal = orderTotal;
+		this.orderNumber = orderNumber;
+		this.orderDate = orderDate;
+	}
+	
 	public Orders(Double orderTotal, Integer orderNumber, String orderDate, List<Product> products,
 			String shippingAddress) {
 		super();
@@ -48,6 +56,16 @@ public class Orders {
 	}
 	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public static List<Orders> getOrderList(String userName){
+		List<Orders> orderList = new LinkedList<Orders>();
+		Database db = new Database();
+		db.connect();
+		int userId = db.getUserIdByUsername(userName);
+		db.getOrderHistory(orderList, userId); //Todo: add this function to the Database.java file
+		db.close();
+		return orderList;
 	}
 
 }

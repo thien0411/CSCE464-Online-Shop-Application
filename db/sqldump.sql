@@ -129,6 +129,7 @@ CREATE Table OrderItems
 INSERT INTO Users (Username) VALUES ("CoolSeller123");
 INSERT INTO Users (Username) VALUES ("NonbinaryParents");
 INSERT INTO Users (Username) VALUES ("RadPlaidLad");
+INSERT INTO Users (Username, Password) VALUES ("thien", "123");
 
 ## Product Categories
 INSERT INTO ProductCategories (ProductCategory) VALUES ("Camping/Hiking");
@@ -136,6 +137,12 @@ INSERT INTO ProductCategories (ProductCategory) VALUES ("Electronic");
 INSERT INTO ProductCategories (ProductCategory) VALUES ("Kitchen");
 INSERT INTO ProductCategories (ProductCategory) VALUES ("Office");
 
+## Orders: 
+INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) values
+(4, 1000, "01/01/2017", "Shipping Addess 1", "Billing Adress 1", "123123123");
+
+INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) values
+(4, 2000, "01/02/2017", "Shipping Addess 1", "Billing Adress 1", "123123123");
 ## Products
 INSERT INTO Products (ProductName, ProductCategoryIndex, SellerId, ProductDescription, Price, AvailableQuantity, EstimatedDeliveryDays, ProductPhotosLinks, ProductThumbnail) VALUES
   ("24-Inch Desktop Monitor", 2, 1, "This desktop monitor can serve many purposes. It accepts HDMI and has HD Audio output.", 159.99, 25, 7, "http://www.publicdomainpictures.net/pictures/20000/nahled/computer-monitor-isolated-113001152897GC.jpg", "http://www.publicdomainpictures.net/pictures/20000/nahled/computer-monitor-isolated-113001152897GC.jpg");
@@ -169,3 +176,5 @@ INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) 
 -- SELECT * FROM Products;
 -- SELECT * FROM ProductQA;
 -- SELECT * FROM CustomerReviews;
+select * from orders;
+select * from Users;

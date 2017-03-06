@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,38 +62,19 @@
     </thead>
 
     <tbody>
+    <c:forEach var="order" items="${orderList}">
     	<tr>
-     		<td>123123</td>
-     		<td>150.00</td>
-     		<td>01/01/2017</td>
+     		<td>${ order.orderNumber}</td>
+     		<td>$${ order.orderTotal}</td>
+     		<td>${  order.orderDate}</td>
      		<td>
-     			<form action="ManageOrder.jsp"><input type="submit" class="btn btn-default" value="View"></form>
+     			<form action="ManageOrder" method="post">
+             	 <input type="hidden" name="productId" value="${item.id}">
+              	 <input type="submit" class="btn btn-default" value="View ManageOrder">
+       			</form>
      		</td>
      	</tr>
-     	<tr>
-     		<td>234567</td>
-     		<td>158.00</td>
-     		<td>14/01/2017</td>
-     		<td>
-     			<form action="ManageOrder.jsp"><input type="submit" class="btn btn-default" value="View"></form>
-     		</td>
-     	</tr>
-     	<tr>
-     		<td>345678</td>
-     		<td>164.00</td>
-     		<td>12/01/2017</td>
-     		<td>
-     			<form action="ManageOrder.jsp"><input type="submit" class="btn btn-default" value="View"></form>
-     		</td>
-     	</tr>
-     	<tr>
-     		<td>456789</td>
-     		<td>182.00</td>
-     		<td>11/01/2017</td>
-     		<td>
-     			<form action="ManageOrder.jsp"><input type="submit" class="btn btn-default" value="View"></form>
-     		</td>
-     	</tr>
+      </c:forEach>
     </tbody>
   </table>
 </div>
