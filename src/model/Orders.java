@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Orders {
+	private Integer orderId;
 	private Double orderTotal;
 	private Integer orderNumber;
 	private String orderDate;
@@ -57,6 +58,12 @@ public class Orders {
 	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
 
 	public static List<Orders> getOrderList(String userName){
 		List<Orders> orderList = new LinkedList<Orders>();
@@ -67,5 +74,19 @@ public class Orders {
 		db.close();
 		return orderList;
 	}
+	
+	public static Orders getOrder(int OrderId) {
+		Orders p = null;
+
+		Database db = new Database();
+		db.connect();
+
+		p = db.getOrderById(OrderId);
+
+		db.close();
+		return p;
+	}
+
+	
 
 }

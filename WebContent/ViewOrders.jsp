@@ -69,7 +69,7 @@
      		<td>${  order.orderDate}</td>
      		<td>
      			<form action="ManageOrder" method="post">
-             	 <input type="hidden" name="productId" value="${item.id}">
+             	 <input type="hidden" name="orderId" value="${order.orderNumber}">
               	 <input type="submit" class="btn btn-default" value="View ManageOrder">
        			</form>
      		</td>

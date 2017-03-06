@@ -282,6 +282,49 @@ public class Database {
 		
 	}
 	
+	public Orders getOrderById(int orderId) {
+		String query = "select * from" 
+					+ " orderItems as oi JOIN orders as o ON oi.OrderId = o.Id"
+					+ " JOIN products as p ON p.id	= oi.ProductId" 
+					+ " JOIN Users u ON p.SellerId = u.Id where OrderId = ?";
+		Orders o = null;
+		ResultSet rs;		
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, orderId);
+			rs = ps.executeQuery();
+
+			rs.next();
+			Double orderTotal = rs.getDouble("TotalCost");
+			Integer orderNumber = rs.getInt("OrderId");
+			String orderDate = rs.getString("OrderDate");
+			String shippingAddress = rs.getString("ShippingAddress")
+;			 
+			String productName = rs.getString("ProductName");
+			Integer productQuantity = rs.getInt("Quantity");
+			Double price = rs.getDouble("Price");
+			String sellerName = rs.getString("Username");
+			
+			
+			Boolean isShipped = true;
+			Product products = new Product(productName, sellerName, price , productQuantity, isShipped  );
+			products.setId(rs.getInt("Id"));
+			List<Product> productList = new LinkedList<Product>();
+			
+			productList.add(products);
+			
+			  o = new Orders(orderTotal, orderNumber, orderDate , productList, shippingAddress);
+			
+			
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return o;
+	}
+	
 	public void getOrderHistory(List<Orders> orderList, int userId) {
 		String query = "SELECT o.Id, o.TotalCost, o.OrderDate FROM Orders as o Where CustomerID = ?";
 		ResultSet rs;

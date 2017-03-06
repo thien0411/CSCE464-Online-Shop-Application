@@ -57,14 +57,14 @@
 	<h2>Order Number: ${order.orderNumber}</h2>
 
   <table class="table">
-	<c:forEach var="item" items="${productList}">
+	<c:forEach var="item" items="${order.getProducts()}">
     <tr>
       <td class="order-item">
         <h3>Product Name: ${item.name}</h3>
         <p>Product quantity: ${item.quantityRequested}</p>
         <p>Total Price: ${item.price}</p>
         <p>Seller Name: ${item.sellerName}</p>
-        <p>Shipping Status: $(item.isShipped)</p>
+        <p>Shipping Status: ${ (item.isShipped)}</p>
       </td>
       <td>
         <form action="ProductSearchResults" method="post">
@@ -72,8 +72,9 @@
               <input type="submit" class="btn btn-default" value="View ProductDetails">
         </form>
 		<br>
-        <form action="CancelOrder.jsp">
-          <input type="submit" class="btn btn-default" value="Cancel Item">
+        <form action="CancelOrder" method="post">
+        	<input type="hidden" name="orderId" value="${item.id}">
+       		<input type="submit" class="btn btn-default" value="Cancel">
         </form>
       </td>
     </tr>
@@ -82,7 +83,7 @@
 
   <div class="order-details">
     <p>Order Total: ${order.orderTotal}</p>
-    <p>Ordered Date: ${order.orderDates}</p>
+    <p>Ordered Date: ${order.orderDate}</p>
     <p>Shipping Address: ${order.shippingAddress}</p>
   </div>
 </div>

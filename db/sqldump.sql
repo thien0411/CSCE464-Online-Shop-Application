@@ -143,6 +143,9 @@ INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAdd
 
 INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) values
 (4, 2000, "01/02/2017", "Shipping Addess 1", "Billing Adress 1", "123123123");
+
+INSERT INTO OrderItems(OrderId, SellerId, ProductId, ProductPrice, Quantity, ShippingStatus, ShippingRefNo, Status) values
+(1, 1, 1,  200, 2, 1, 111, 1);
 ## Products
 INSERT INTO Products (ProductName, ProductCategoryIndex, SellerId, ProductDescription, Price, AvailableQuantity, EstimatedDeliveryDays, ProductPhotosLinks, ProductThumbnail) VALUES
   ("24-Inch Desktop Monitor", 2, 1, "This desktop monitor can serve many purposes. It accepts HDMI and has HD Audio output.", 159.99, 25, 7, "http://www.publicdomainpictures.net/pictures/20000/nahled/computer-monitor-isolated-113001152897GC.jpg", "http://www.publicdomainpictures.net/pictures/20000/nahled/computer-monitor-isolated-113001152897GC.jpg");
@@ -164,7 +167,7 @@ INSERT INTO ProductQA (ProductId, CustomerId, Question, Answer) VALUES
 ## Customer Reviews
 INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
   (1, 2, "2017-02-15", 5, "So neat. Really worth the price!");
-INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
+INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUE
   (1, 3, "2017-01-23", 3, "It was alright.");
 INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
   (2, 1, "2016-12-15", 4, "My kids love this! I think they'll become interested in STEM subjects.");
@@ -176,5 +179,6 @@ INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) 
 -- SELECT * FROM Products;
 -- SELECT * FROM ProductQA;
 -- SELECT * FROM CustomerReviews;
+select * from orderItems as oi join orders as o on oi.OrderId = o.Id join products as p on p.id	= oi.ProductId JOIN Users u ON p.SellerId = u.Id where OrderId = 1;
 select * from orders;
-select * from Users;
+-- select * from Users;

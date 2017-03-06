@@ -1,10 +1,16 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import model.Orders;
 
 /**
  * Servlet implementation class ManageOrder
@@ -25,6 +31,19 @@ public class ManageOrder extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		HttpSession session = request.getSession();
+		
+		int orderId = Integer.parseInt(request.getParameter("orderId"));
+		
+		
+		Orders order = Orders.getOrder(orderId);
+		
+		
+		request.setAttribute("order", order);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ManageOrder.jsp");
+		dispatcher.forward(request, response);
 		
 	}
 

@@ -11,7 +11,6 @@ public class Product {
 	private String sellerName;
 	private Double price;
 	private String thumbnail;
-
 	private Integer estimatedDeliveryDays;
 	private String description;
 	private List<String> photos;
@@ -27,6 +26,18 @@ public class Product {
 	public Product () {
 	}
 
+	
+	
+	public Product(String name, String sellerName, Double price, Integer quantityRequested, Boolean isShipped ) {
+		super();
+		this.name = name;
+		this.sellerName = sellerName;
+		this.price = price;
+		this.quantityRequested = quantityRequested;
+		this.isShipped = isShipped;
+	}
+	
+	
 	public Product (String name, String category, String sellerName, Double price, String thumbnail) {
 		this.name = name;
 		this.category = category;

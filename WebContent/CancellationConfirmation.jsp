@@ -49,24 +49,10 @@
 </nav>
 
 <div class="container">
-	<h2>The following orders have been cancelled</h2>
+	<h2>Cancel Confirmation! </h2>
+	<h3>The following Order has been cancel: </h3>
 
-	<h3>Order Number: 123123</h3>
-  <table class="table">
-    <tr>
-      <td>
-        <p>Product Name: Product 2</p>
-        <p>Product quantity: 10</p>
-        <p>Total Price: $100.00</p>
-        <p>Seller Name: Amazon</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <h4>The amount of $100.00 has been refunded to your credit card.</h4>
-      </td>
-    </tr>
-  </table>
+	
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

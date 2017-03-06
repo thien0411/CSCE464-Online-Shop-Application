@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,21 +50,21 @@
 </nav>
 
 <div class="container">
-  <h2>Order Number: 123123</h2>
+  <h2>Do you want to cancel the following order?</h2>
 
   <table class="table">
     <tr>
-      <td>
-        <h3>Product Name: Product 2</h3>
-        <p>Product quantity: 10</p>
-        <p>Total Price: $100.00</p>
-        <p>Seller Name: Amazon</p>
-        <p>Shipping Status: Wait for shipping</p>
+      <td class="order-item">
+        <p>Order Number: ${order.orderNumber}</p>
+       	<p>Order Total: ${order.orderTotal}</p>
+       	<p>Order Date: ${order.orderDate}</p>
+       	<p>Shipping Address: ${order.shippingAddress}</p>
       </td>
 
       <td>
-        <form action="CancellationConfirmation.jsp">
-          <input type="submit" class="btn btn-primary" value="Confirm Cancellation">
+        <form action="CancelOrderTransaction" method="post">
+        	<input type="hidden" name="productId" value="${order.orderNumber}">
+       		<input type="submit" class="btn btn-default" value="Confirm Cancellation">
         </form>
         <br>
         <form action="CustomerHomePage.jsp">
