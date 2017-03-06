@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +35,11 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
-            ${userName} <span class="caret"></span>
+            <c:out value="${userName}"/> <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
-            <li><a href="ViewOrders.jsp">View Orders</a></li>
+            <li><a href="ViewOrders">View Orders</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="Logout">Logout</a></li>
           </ul>
@@ -49,10 +50,9 @@
 </nav>
 
 <div class="container">
-	<h2>Cancel Confirmation! </h2>
-	<h3>The following Order has been cancel: </h3>
+  <h2>Cancel Confirmation! </h2>
+  <h3>The following order(s) has been cancelled:</h3>
 
-	
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

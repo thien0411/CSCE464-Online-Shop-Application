@@ -18,16 +18,14 @@ public class Product {
 
 	private List<Review> reviews;
 	private List<QuestionAnswer> qaList;
-	
+
 	private Integer quantityRequested;
-	
+
 	private Boolean isShipped;
 
 	public Product () {
 	}
 
-	
-	
 	public Product(String name, String sellerName, Double price, Integer quantityRequested, Boolean isShipped ) {
 		super();
 		this.name = name;
@@ -36,8 +34,7 @@ public class Product {
 		this.quantityRequested = quantityRequested;
 		this.isShipped = isShipped;
 	}
-	
-	
+
 	public Product (String name, String category, String sellerName, Double price, String thumbnail) {
 		this.name = name;
 		this.category = category;
@@ -178,7 +175,7 @@ public class Product {
 		db.close();
 		return productList;
 	}
-	
+
 	public String formattedPrice () {
 		DecimalFormat df = new DecimalFormat(".##");
 		return df.format(this.price);
@@ -197,7 +194,7 @@ public class Product {
 
 		return Review.stars(averageReview);
 	}
-	
+
 	public boolean validQuantity () {
 		return this.quantityRequested <= this.availableQuantity;
 	}

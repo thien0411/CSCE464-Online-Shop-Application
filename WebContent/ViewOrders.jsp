@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,11 +36,11 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 					role="button" aria-haspopup="true" aria-expanded="false">
-						${userName} <span class="caret"></span>
+						<c:out value="${userName}"/> <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu">
-						<li><a href="ViewOrders.jsp">View Orders</a></li>
+						<li><a href="ViewOrders">View Orders</a></li>
 						<li role="separator" class="divider"></li>
 						<li><a href="Logout">Logout</a></li>
 					</ul>
@@ -53,29 +53,25 @@
 <div class="container">
   <h2>Here is your list of order</h2>
   <table class="table">
-    <thead>
-      <tr>
-        <th>Order Number</th>
-        <th>Order Total</th>
-        <th>Order Date</th>
-      </tr>
-    </thead>
+    <tr>
+      <th>Order Number</th>
+      <th>Order Total</th>
+      <th>Order Date</th>
+    </tr>
 
-    <tbody>
     <c:forEach var="order" items="${orderList}">
     	<tr>
-     		<td>${ order.orderNumber}</td>
-     		<td>$${ order.orderTotal}</td>
-     		<td>${  order.orderDate}</td>
+     		<td>${order.orderNumber}</td>
+     		<td>$${order.orderTotal}</td>
+     		<td>${order.orderDate}</td>
      		<td>
      			<form action="ManageOrder" method="post">
-             	 <input type="hidden" name="orderId" value="${order.orderNumber}">
-              	 <input type="submit" class="btn btn-default" value="View ManageOrder">
-       			</form>
-     		</td>
+            <input type="hidden" name="orderId" value="${order.orderNumber}">
+            <input type="submit" class="btn btn-default" value="View ManageOrder">
+       		</form>
+     	  </td>
      	</tr>
-      </c:forEach>
-    </tbody>
+    </c:forEach>
   </table>
 </div>
 

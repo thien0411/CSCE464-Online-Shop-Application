@@ -39,7 +39,7 @@
           </a>
 
           <ul class="dropdown-menu">
-            <li><a href="ViewOrders.jsp">View Orders</a></li>
+            <li><a href="ViewOrders">View Orders</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="Logout">Logout</a></li>
           </ul>

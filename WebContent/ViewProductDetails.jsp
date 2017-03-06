@@ -16,38 +16,38 @@
 </head>
 <body>
 <nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-			data-toggle="collapse" data-target="#head-nav"
-			aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="CustomerHomePage.jsp">Welcome</a>
-		</div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed"
+      data-toggle="collapse" data-target="#head-nav"
+      aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="CustomerHomePage.jsp">Welcome</a>
+    </div>
 
-		<div class="collapse navbar-collapse" id="head-nav">
-			<ul class="nav navbar-nav">
-				<li><a href="CustomerHomePage.jsp">Home</a></li>
+    <div class="collapse navbar-collapse" id="head-nav">
+      <ul class="nav navbar-nav">
+        <li><a href="CustomerHomePage.jsp">Home</a></li>
         <li><a href="ManageOrder.jsp">Manage Order</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
-					role="button" aria-haspopup="true" aria-expanded="false">
-						<c:out value="${userName}"/> <span class="caret"></span>
-					</a>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+          role="button" aria-haspopup="true" aria-expanded="false">
+            <c:out value="${userName}"/> <span class="caret"></span>
+          </a>
 
-					<ul class="dropdown-menu">
-						<li><a href="ViewOrders.jsp">View Orders</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="Logout">Logout</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
+          <ul class="dropdown-menu">
+            <li><a href="ViewOrders">View Orders</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="Logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
 <div class="container">
@@ -59,11 +59,11 @@
   </div>
   <div class="product-details row">
     <h2>Product Details for <i><c:out value="${product.name}"/></i></h2>
-    
+
     <div class="col-sm-4 col-md-5">
       <img src="${product.photos[0]}">
     </div>
-    
+
     <div class="col-sm-8 col-md-7">
       <p>Price: $${product.formattedPrice()}</p>
       <p>Seller: ${product.sellerName}</p>
@@ -76,7 +76,7 @@
       <form action="UpdateShoppingCart" method="post">
         <input type="hidden" name="productId" value="${product.id}">
         <input type="hidden" name="action" value="add">
-        
+
         Quantity:
         <select name="quantity" class="form-control quantity">
           <option value="1">1</option>
@@ -102,7 +102,7 @@
               -
               <c:out value="${qa.customer.userName}" />
             </h4>
-            
+
             <p>
               "<c:out value="${qa.answer}"/>"
               -
@@ -121,19 +121,19 @@
       <tr>
         <td>
           <h4>Overall Rating</h4>
-          
+
           <div class="rating">
             <c:out value="${product.averageStars()}" escapeXml="false"/>
           </div>
         </td>
       </tr>
-      
+
       <c:forEach var="review" items="${product.reviews}">
         <tr>
           <td>
             <h4><c:out value="${review.customer.userName}"/></h4>
             <p><c:out value="${review.formattedDate()}"/></p>
-            
+
             <div class="rating">
               <c:out value="${review.stars()}" escapeXml="false"/>
             </div>

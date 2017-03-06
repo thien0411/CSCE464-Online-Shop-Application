@@ -35,11 +35,11 @@ public class CustomerTransactionConfirmation extends HttpServlet {
 		String billingAddress = request.getParameter("billingAddress");
 		String shippingAddress = request.getParameter("shippingAddress");
 
-		String status = null;
+//		String status = null;
 
 		Transactions t = new Transactions();
 
-		boolean errorExists = false;
+//		boolean errorExists = false;
 
 		try {
 			cardNumber = Integer.parseInt(request.getParameter("cardNumber"));

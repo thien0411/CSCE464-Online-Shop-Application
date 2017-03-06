@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,11 +35,11 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
-            ${userName} <span class="caret"></span>
+            <c:out value="${userName}"/> <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
-            <li><a href="ViewOrders.jsp">View Orders</a></li>
+            <li><a href="ViewOrders">View Orders</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="Logout">Logout</a></li>
           </ul>
@@ -56,15 +56,15 @@
     <tr>
       <td class="order-item">
         <p>Order Number: ${order.orderNumber}</p>
-       	<p>Order Total: ${order.orderTotal}</p>
-       	<p>Order Date: ${order.orderDate}</p>
-       	<p>Shipping Address: ${order.shippingAddress}</p>
+        <p>Order Total: ${order.orderTotal}</p>
+        <p>Order Date: ${order.orderDate}</p>
+        <p>Shipping Address: ${order.shippingAddress}</p>
       </td>
 
       <td>
         <form action="CancelOrderTransaction" method="post">
-        	<input type="hidden" name="productId" value="${order.orderNumber}">
-       		<input type="submit" class="btn btn-default" value="Confirm Cancellation">
+          <input type="hidden" name="productId" value="${order.orderNumber}">
+          <input type="submit" class="btn btn-default" value="Confirm Cancellation">
         </form>
         <br>
         <form action="CustomerHomePage.jsp">
