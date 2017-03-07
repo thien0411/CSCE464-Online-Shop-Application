@@ -32,10 +32,11 @@
     <div class="collapse navbar-collapse" id="head-nav">
       <ul class="nav navbar-nav">
         <li><a href="CustomerHomePage.jsp">Home</a></li>
+        <li><a href="View&CheckoutShoppingCart.jsp">Shopping Cart (<c:out value="${shoppingCart.size()}"/>)</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
-            <c:out value="${userName}"/> <span class="caret"></span>
+            <c:out value="${user.userName}"/> <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
@@ -52,41 +53,49 @@
 <div class="container">
   <h2>Shopping Cart</h2>
 
-  <table class="table">
-    <tr>
-      <th>Thumbnail</th>
-      <th>Name</th>
-      <th>Seller Name</th>
-      <th>Quantity</th>
-      <th>Price (Individual)</th>
-      <th>Estimated Delivery Days</th>
-      <td></td>
-    </tr>
-      <c:forEach var="item" items="${shoppingCart}">
-        <tr>
-          <td><img src="${item.thumbnail}" alt="Thumbnail"></td>
-          <td><c:out value="${item.name}"/></td>
-          <td><c:out value="${item.sellerName}"/></td>
-          <td><c:out value="${item.quantityRequested}" /></td>
-          <td>$<c:out value="${item.formattedPrice()}"/></td>
-          <td><c:out value="${item.estimatedDeliveryDays}"/></td>
-          <td>
-            <form action="UpdateShoppingCart" method="post">
-              <input type="hidden" name="productId" value="${item.id}">
-              <input type="hidden" name="action" value="delete">
-              <input type="submit" class="btn btn-default" value="Delete Item">
-            </form>
-          </td>
-        </tr>
-      </c:forEach>
-    <tr>
-      <td colspan="7"><h3>Total: $<c:out value="${formattedCartTotal}"/></h3></td>
-    </tr>
-  </table>
+  <c:choose>
+    <c:when test="${shoppingCart.size() == 0}">
+      <h3>Your shopping cart is empty.</h3>
+    </c:when>
 
-  <form action="CustomerTransaction.jsp" method="post">
-    <input class="btn btn-primary" type="submit" value="Checkout">
-  </form>
+    <c:otherwise>
+      <table class="table">
+        <tr>
+          <th>Thumbnail</th>
+          <th>Name</th>
+          <th>Seller Name</th>
+          <th>Quantity</th>
+          <th>Price (Individual)</th>
+          <th>Estimated Delivery Days</th>
+          <td></td>
+        </tr>
+          <c:forEach var="item" items="${shoppingCart}">
+            <tr>
+              <td><img src="${item.thumbnail}" alt="Thumbnail"></td>
+              <td><c:out value="${item.name}"/></td>
+              <td><c:out value="${item.sellerName}"/></td>
+              <td><c:out value="${item.quantityRequested}" /></td>
+              <td>$<c:out value="${item.formattedPrice()}"/></td>
+              <td><c:out value="${item.estimatedDeliveryDays}"/></td>
+              <td>
+                <form action="UpdateShoppingCart" method="post">
+                  <input type="hidden" name="productId" value="${item.id}">
+                  <input type="hidden" name="action" value="delete">
+                  <input type="submit" class="btn btn-default" value="Delete Item">
+                </form>
+              </td>
+            </tr>
+          </c:forEach>
+        <tr>
+          <td colspan="7"><h3>Total: $<c:out value="${formattedCartTotal}"/></h3></td>
+        </tr>
+      </table>
+
+      <form action="CustomerTransaction.jsp" method="post">
+        <input class="btn btn-primary" type="submit" value="Checkout">
+      </form>
+    </c:otherwise>
+  </c:choose>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

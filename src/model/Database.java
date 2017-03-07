@@ -351,4 +351,7 @@ public class Database {
 		}
 	}
 
+	public void addCreditCard () {
+		// TODO: Define method
+	}
 }

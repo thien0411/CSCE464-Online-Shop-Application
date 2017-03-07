@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/main.css">
 </head>
-
 <body>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
@@ -33,10 +32,11 @@
 		<div class="collapse navbar-collapse" id="head-nav">
 			<ul class="nav navbar-nav">
 				<li><a href="CustomerHomePage.jsp">Home</a></li>
+        <li><a href="View&CheckoutShoppingCart.jsp">Shopping Cart (<c:out value="${shoppingCart.size()}"/>)</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 					role="button" aria-haspopup="true" aria-expanded="false">
-						<c:out value="${userName}"/> <span class="caret"></span>
+						<c:out value="${user.userName}"/> <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu">
@@ -51,28 +51,36 @@
 </nav>
 
 <div class="container">
-  <h2>Here is your list of order</h2>
-  <table class="table">
-    <tr>
-      <th>Order Number</th>
-      <th>Order Total</th>
-      <th>Order Date</th>
-    </tr>
-
-    <c:forEach var="order" items="${orderList}">
-    	<tr>
-     		<td>${order.orderNumber}</td>
-     		<td>$${order.orderTotal}</td>
-     		<td>${order.orderDate}</td>
-     		<td>
-     			<form action="ManageOrder" method="post">
-            <input type="hidden" name="orderId" value="${order.orderNumber}">
-            <input type="submit" class="btn btn-default" value="View ManageOrder">
-       		</form>
-     	  </td>
-     	</tr>
-    </c:forEach>
-  </table>
+  
+  <c:choose>
+    <c:when test="${orderList.size() == 0}">
+      <h2>You have no orders.</h2>
+    </c:when>
+    <c:otherwise>
+      <h2>List of order(s)</h2>
+      <table class="table">
+        <tr>
+          <th>Order Number</th>
+          <th>Order Total</th>
+          <th>Order Date</th>
+        </tr>
+    
+        <c:forEach var="order" items="${orderList}">
+        	<tr>
+         		<td>${order.orderNumber}</td>
+         		<td>$${order.orderTotal}</td>
+         		<td>${order.orderDate}</td>
+         		<td>
+         			<form action="ManageOrder" method="post">
+                <input type="hidden" name="orderId" value="${order.orderNumber}">
+                <input type="submit" class="btn btn-default" value="View ManageOrder">
+           		</form>
+         	  </td>
+         	</tr>
+        </c:forEach>
+      </table>
+    </c:otherwise>
+  </c:choose>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

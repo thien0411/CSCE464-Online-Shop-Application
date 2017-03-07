@@ -98,7 +98,7 @@ CREATE Table Orders
 (
   Id INT NOT NULL AUTO_INCREMENT,
   CustomerId INT,
-  TotalCost INT,
+  TotalCost DOUBLE,
   OrderDate VARCHAR(40),
   ShippingAddress VARCHAR(255),
   BillingAddress VARCHAR(255),

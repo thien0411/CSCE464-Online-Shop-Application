@@ -1,12 +1,17 @@
 package controller;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Product;
 import model.Transactions;
 
 /**
@@ -29,31 +34,13 @@ public class CustomerTransactionConfirmation extends HttpServlet {
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String cardType = request.getParameter("cardType");
-		Integer cardNumber = null;
-		Integer securityCode = null;
+		String cardNumber = request.getParameter("cardNumber");
+		String securityCode = request.getParameter("securityCode");
 		String expireMonth = request.getParameter("expireMonth");
 		String billingAddress = request.getParameter("billingAddress");
 		String shippingAddress = request.getParameter("shippingAddress");
 
-//		String status = null;
-
 		Transactions t = new Transactions();
-
-//		boolean errorExists = false;
-
-		try {
-			cardNumber = Integer.parseInt(request.getParameter("cardNumber"));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			cardNumber = 0;
-		}
-
-		try {
-			securityCode = Integer.parseInt(request.getParameter("securityCode"));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			securityCode = 0;
-		}
 
 		t.setFirstName(firstName);
 		t.setLastName(lastName);
@@ -64,10 +51,28 @@ public class CustomerTransactionConfirmation extends HttpServlet {
 		t.setBillingAddress(billingAddress);
 		t.setShippingAddress(shippingAddress);
 
+		Double total = 0.0;
 		HttpSession session = request.getSession();
-		session.setAttribute("transaction", t);
 
-		response.sendRedirect("CustomerTransactionConfirmation.jsp");
+		@SuppressWarnings("unchecked")
+		List<Product> shoppingCart = (LinkedList<Product>)session.getAttribute("shoppingCart");
+
+		for (Product p : shoppingCart) {
+			total += p.getPrice() * p.getQuantityRequested();
+		}
+		
+		if (t.validData() && t.sufficientFunds()) {
+			/* Create order based on shopping cart */
+			// Something with Orders model
+
+			/* Clear shopping cart */
+			shoppingCart.clear();
+		}
+
+		request.setAttribute("transaction", t);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/CustomerTransactionConfirmation.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

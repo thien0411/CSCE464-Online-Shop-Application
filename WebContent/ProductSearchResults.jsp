@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/main.css">
-
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -33,11 +32,12 @@
     <div class="collapse navbar-collapse" id="head-nav">
       <ul class="nav navbar-nav">
         <li><a href="CustomerHomePage.jsp">Home</a></li>
+        <li><a href="View&CheckoutShoppingCart.jsp">Shopping Cart (<c:out value="${shoppingCart.size()}"/>)</a></li>
         <li><a href="ManageOrder.jsp">Manage Order</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
-            <c:out value="${userName}" /> <span class="caret"></span>
+            <c:out value="${user.userName}" /> <span class="caret"></span>
           </a>
 
           <ul class="dropdown-menu">
@@ -53,10 +53,10 @@
           <label for="categories">Category</label>
           <select class="form-control" name="category">
             <option value="0">All Categories</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            <option value="1">Camping/Hiking</option>
+            <option value="2">Electronic</option>
+            <option value="3">Kitchen</option>
+            <option value="4">Office</option>
           </select>
           <input type="text" class="form-control" name="searchQuery" placeholder="Search" value="${query}" required="required">
         </div>

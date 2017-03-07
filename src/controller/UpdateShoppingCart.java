@@ -76,9 +76,7 @@ public class UpdateShoppingCart extends HttpServlet {
 			total += item.getPrice() * (double)item.getQuantityRequested();
 		}
 
-		session.setAttribute("cartTotal", total);
 		session.setAttribute("formattedCartTotal", df.format(total));
-
 		response.sendRedirect("View&CheckoutShoppingCart.jsp");
 	}
 

@@ -11,6 +11,9 @@ insert_final_newline = true
 [*.java]
 indent_style = tab
 
+[*.sql]
+end_of_line = lf
+
 [*.md]
 trim_trailing_whitespace = false
 insert_final_newline = false

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class Users {
+	private Integer id;
 	private String userName;
 	private String password;
 
@@ -35,6 +36,12 @@ public class Users {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Integer getId() {
+		return this.id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	/* Methods */
@@ -124,6 +131,7 @@ public class Users {
 			}
 			else {
 				redirect = "CustomerHomePage.jsp";
+				this.id = db.getUserIdByUsername(this.userName);
 			}
 		}
 
