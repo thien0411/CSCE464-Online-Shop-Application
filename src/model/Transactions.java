@@ -1,5 +1,8 @@
 package model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Transactions {
 	private String firstName;
 	private String lastName;
@@ -102,5 +105,20 @@ public class Transactions {
 		boolean hasFunds = true;
 
 		return hasFunds;
+	}
+
+	public Orders createOrder() {
+		Orders order = new Orders();
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String orderDate = formatter.format(date);
+
+		order.setOrderDate(orderDate);
+		order.setBillingAddress(this.billingAddress);
+		order.setShippingAddress(this.shippingAddress);
+		order.setCreditCardNumber(this.cardNumber);
+
+		return order;
 	}
 }

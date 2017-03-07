@@ -109,7 +109,7 @@
     <div class="form-group">
       Security Code:
       <input type="text" class="form-control" name="securityCode"
-        placeholder="Security Code" maxlength="3">
+        placeholder="Security Code" maxlength="4">
     </div>
 
     <div class="form-group">

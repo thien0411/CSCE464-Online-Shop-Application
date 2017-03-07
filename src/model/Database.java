@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import util.ShippingRefNoGenerator;
+
 public class Database {
 	private Connection conn;
 	private PreparedStatement ps;
@@ -279,37 +281,34 @@ public class Database {
 		}
 		return id;
 	}
-	public Orders getOrderById(int orderId) {
-		String query = "select * from" 
-				+ " orderItems as oi JOIN orders as o ON oi.OrderId = o.Id"
-				+ " JOIN products as p ON p.id	= oi.ProductId" 
-				+ " JOIN Users u ON p.SellerId = u.Id where OrderId = ?";
+
+	public Orders getOrderById (int orderId) {
+		String query = "SELECT * FROM Orders WHERE Id = ?";
+
 		Orders o = null;
-		ResultSet rs;		
+		ResultSet rs;
+		
+		List<Product> productList = new LinkedList<Product>();
 
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, orderId);
 			rs = ps.executeQuery();
+			Double orderTotal = 0.0;
+			String orderDate = null;
+			String shippingAddress = null;
+			
+			if (rs.next()) {
+				orderTotal = rs.getDouble("TotalCost");
+				orderDate = rs.getString("OrderDate");
+				shippingAddress = rs.getString("ShippingAddress");
+				
+				productList = this.getOrderItems(orderId);
+			}
 
-			rs.next();
-			Double orderTotal = rs.getDouble("TotalCost");
-			Integer orderNumber = rs.getInt("OrderId");
-			String orderDate = rs.getString("OrderDate");
-			String shippingAddress = rs.getString("ShippingAddress");			 
-			String productName = rs.getString("ProductName");
-			Integer productQuantity = rs.getInt("Quantity");
-			Double price = rs.getDouble("Price");
-			String sellerName = rs.getString("Username");
 
-			Boolean isShipped = true;
-			Product product = new Product(productName, sellerName, price , productQuantity, isShipped);
-			product.setId(rs.getInt("Id"));
-			List<Product> productList = new LinkedList<Product>();
 
-			productList.add(product);
-
-			o = new Orders(orderTotal, orderNumber, orderDate , productList, shippingAddress);
+			o = new Orders(orderTotal, orderId, orderDate , productList, shippingAddress);
 
 
 			rs.close();
@@ -318,6 +317,51 @@ public class Database {
 		}
 
 		return o;
+	}
+	
+	private List<Product> getOrderItems (int orderId) {
+		String query = "SELECT oi.Quantity, oi.ShippingStatus, u.Username, p.*"
+				+ "FROM OrderItems oi "
+				+ "JOIN Products p on oi.ProductId = p.Id "
+				+ "JOIN Users u on u.Id = p.SellerId "
+				+ "WHERE OrderId = ?";
+
+		boolean isShipped = false;
+		
+		ResultSet rs;
+		List<Product> productList = new LinkedList<Product>();
+		
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, orderId);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Integer productId = rs.getInt("Id");
+				String productName = rs.getString("ProductName");
+				Integer quantity = rs.getInt("Quantity");
+				Double price = rs.getDouble("Price");
+				String sellerName = rs.getString("Username");
+				Integer shippingStatus = rs.getInt("ShippingStatus");
+				if (shippingStatus.equals(1)) isShipped = true;
+				
+				Product p = new Product();
+				p.setId(productId);
+				p.setName(productName);
+				p.setQuantityRequested(quantity);
+				p.setPrice(price);
+				p.setSellerName(sellerName);
+				p.setIsShipped(isShipped);
+				
+				productList.add(p);
+			}
+
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return productList;
 	}
 
 	public void getOrderHistory(List<Orders> orderList, int userId) {
@@ -347,24 +391,26 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
+
 	public void deteleOrderByOrderId(int OrderId){
 		String query = "Delete from OderItems where OrderId = ?;"
-				 + " Delete from OderItems where Id = ?";
-		
+				+ " Delete from OderItems where Id = ?";
+
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, OrderId);
 			ps.setInt(2, OrderId);
-		    ps.executeQuery();
-
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	} 
 
-	}; 
 	public void addOrder(Orders order){
-		String query = "INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) VALUES"
-				+ "(?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO Orders "
+				+ "(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) "
+				+ "VALUES (?, ?, ?, ?, ?, ?)";
+
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, order.getCustomerId());
@@ -373,13 +419,58 @@ public class Database {
 			ps.setString(4, order.getShippingAddress());
 			ps.setString(5, order.getBillingAddress());
 			ps.setString(6, order.getCreditCardNumber());
-		    ps.executeQuery();
-
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
 
+	public Integer getOrderId (Integer customerId, Double totalCost) {
+		String query = "SELECT Id FROM Orders WHERE CustomerId = ? AND TotalCost = ?";
+		Integer orderId = 0;
+		ResultSet rs;
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, customerId);
+			ps.setDouble(2, totalCost);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				orderId = rs.getInt("id");
+			}
+
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return orderId;
+	}
+
+	public void addOrderItems (Integer orderId, List<Product> shoppingCart) {
+		String insert = "INSERT INTO OrderItems "
+				+ "(OrderId, SellerId, ProductId, ProductPrice, Quantity, ShippingStatus, ShippingRefNo, Status) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+		try {
+			for (Product p : shoppingCart) {
+				Integer sellerId = this.getUserIdByUsername(p.getSellerName());
+
+				ps = conn.prepareStatement(insert);
+				ps.setInt(1, orderId);
+				ps.setInt(2, sellerId);
+				ps.setInt(3, p.getId());
+				ps.setDouble(4, p.getPrice());
+				ps.setInt(5, p.getQuantityRequested());
+				ps.setInt(6, 1);
+				ps.setInt(7, ShippingRefNoGenerator.generateRandom());
+				ps.setInt(8, 1);
+
+				ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

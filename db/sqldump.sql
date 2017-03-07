@@ -98,7 +98,7 @@ CREATE Table Orders
 (
   Id INT NOT NULL AUTO_INCREMENT,
   CustomerId INT,
-  TotalCost DOUBLE,
+  TotalCost DECIMAL(16, 2),
   OrderDate VARCHAR(40),
   ShippingAddress VARCHAR(255),
   BillingAddress VARCHAR(255),
@@ -113,7 +113,7 @@ CREATE Table OrderItems
   OrderId INT,
   SellerId INT,
   ProductId INT,
-  ProductPrice DOUBLE,
+  ProductPrice DECIMAL(16, 2),
   Quantity INT,
   ShippingStatus TINYINT(1), /*Shipped or Not yet shipped*/
   ShippingRefNo INT,
@@ -167,23 +167,16 @@ INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) 
 
 ## Orders
 INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) VALUES
-(4, 1000, "01/01/2017", "Shipping Addess 1", "Billing Adress 1", "123123123");
-
-INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) VALUES
-(4, 2000, "01/02/2017", "Shipping Addess 1", "Billing Adress 1", "123123123");
+(4, 1000, "2017-01-13", "Shipping Addess 1", "Billing Adress 1", "123123123");
 
 ## OrderItems
 INSERT INTO OrderItems(OrderId, SellerId, ProductId, ProductPrice, Quantity, ShippingStatus, ShippingRefNo, Status) VALUES
 (1, 1, 1,  200, 2, 1, 111, 1);
 
-
 -- SELECT * FROM ProductCategories;
-SELECT * FROM Users;
+-- SELECT * FROM Users;
 -- SELECT * FROM Products;
 -- SELECT * FROM ProductQA;
 -- SELECT * FROM CustomerReviews;
-select * from orderItems as oi join orders as o on oi.OrderId = o.Id join products as p on p.id	= oi.ProductId JOIN Users u ON p.SellerId = u.Id where OrderId = 1;
-select * from orders;
-
-delete from orderItems where OrderId = 2;
-select * from orderItems;
+-- SELECT * FROM orders;
+-- SELECT * FROM orderItems;

@@ -58,12 +58,12 @@
   <h2>Order Number: ${order.orderNumber}</h2>
 
   <table class="table">
-    <c:forEach var="item" items="${order.getProducts()}">
+    <c:forEach var="item" items="${order.products}">
       <tr>
         <td class="order-item">
           <h3>Product Name: <c:out value="${item.name}"/></h3>
           <p>Product quantity: ${item.quantityRequested}</p>
-          <p>Total Price: ${item.price}</p>
+          <p>Total Price: ${item.formattedPrice()}</p>
           <p>Seller Name: <c:out value="${item.sellerName}"/></p>
           <p>Shipping Status: ${item.isShipped ? "Shipped" : "Not yet shipped"}</p>
         </td>

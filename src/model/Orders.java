@@ -14,8 +14,10 @@ public class Orders {
 	private String billingAddress;
 	private String creditCardNumber;
 
+	public Orders () {
+	}
+	
 	public Orders(Double orderTotal, Integer orderNumber, String orderDate) {
-		super();
 		this.orderTotal = orderTotal;
 		this.orderNumber = orderNumber;
 		this.orderDate = orderDate;
@@ -23,7 +25,6 @@ public class Orders {
 	
 	public Orders(Double orderTotal, Integer orderNumber, String orderDate, List<Product> products,
 			String shippingAddress) {
-		super();
 		this.orderTotal = orderTotal;
 		this.orderNumber = orderNumber;
 		this.orderDate = orderDate;
@@ -92,7 +93,7 @@ public class Orders {
 		Database db = new Database();
 		db.connect();
 		int userId = db.getUserIdByUsername(userName);
-		db.getOrderHistory(orderList, userId); //Todo: add this function to the Database.java file
+		db.getOrderHistory(orderList, userId);
 		db.close();
 		return orderList;
 	}
@@ -108,24 +109,41 @@ public class Orders {
 		db.close();
 		return o;
 	}
-	public void addOrder(Orders order) {
+	public static void addOrder(Orders order) {
 		Database db = new Database();
 		db.connect();
 		db.addOrder(order);
-
 		db.close();
-	
 	}
-	public void deteleOrderByOrderId(int orderId) {
+	
+	public void dbAddOrder() {
+		Orders.addOrder(this);
+		this.dbGetOrderId();
+		this.dbAddOrderItems();
+	}
+	
+	public static void deteleOrderByOrderId(int orderId) {
 		Database db = new Database();
 		db.connect();
 		db.deteleOrderByOrderId(orderId);
 		db.close();
 	}
 
-	
+	private void dbGetOrderId () {
+		Integer id = 0;
+		Database db = new Database();
+		db.connect();
+		id = db.getOrderId(this.CustomerId, this.orderTotal);
+		db.close();
+		this.orderId = id;
+	}
 
-	
+	private void dbAddOrderItems () {
+		Database db = new Database();
+		db.connect();
+		db.addOrderItems(this.orderId, this.products);
+		db.close();
+	}
 
 	
 

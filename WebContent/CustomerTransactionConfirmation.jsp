@@ -65,8 +65,6 @@
     </c:choose>
   </h2>
 
-  <!-- TODO: Interact with Orders model and get number -->
-
   <div class="transaction-info">
     <h3>Cardholder Name</h3>
     <p>
