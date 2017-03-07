@@ -2,10 +2,13 @@ package controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.Orders;
 
 
 /**
@@ -25,7 +28,14 @@ public class CancelOrderTransaction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("CancellationConfirmation.jsp");
+		int orderId = Integer.parseInt(request.getParameter("orderId"));
+		
+		Orders order = Orders.getOrder(orderId);
+		
+		request.setAttribute("order", order);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CancellationConfirmation.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

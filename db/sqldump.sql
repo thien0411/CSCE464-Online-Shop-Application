@@ -184,3 +184,6 @@ SELECT * FROM Users;
 -- SELECT * FROM CustomerReviews;
 select * from orderItems as oi join orders as o on oi.OrderId = o.Id join products as p on p.id	= oi.ProductId JOIN Users u ON p.SellerId = u.Id where OrderId = 1;
 select * from orders;
+
+delete from orderItems where OrderId = 2;
+select * from orderItems;

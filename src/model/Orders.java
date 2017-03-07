@@ -5,11 +5,14 @@ import java.util.List;
 
 public class Orders {
 	private Integer orderId;
+	private Integer CustomerId;
 	private Double orderTotal;
 	private Integer orderNumber;
 	private String orderDate;
 	private List<Product> products;
 	private String shippingAddress;
+	private String billingAddress;
+	private String creditCardNumber;
 
 	public Orders(Double orderTotal, Integer orderNumber, String orderDate) {
 		super();
@@ -64,6 +67,25 @@ public class Orders {
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
+	public Integer getCustomerId() {
+		return CustomerId;
+	}
+	public void setCustomerId(Integer customerId) {
+		CustomerId = customerId;
+	}
+	public String getBillingAddress() {
+		return billingAddress;
+	}
+	public void setBillingAddress(String billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+	public String getCreditCardNumber() {
+		return creditCardNumber;
+	}
+
+	public void setCreditCardNumber(String creditCardNumber) {
+		this.creditCardNumber = creditCardNumber;
+	}
 
 	public static List<Orders> getOrderList(String userName){
 		List<Orders> orderList = new LinkedList<Orders>();
@@ -76,16 +98,34 @@ public class Orders {
 	}
 	
 	public static Orders getOrder(int OrderId) {
-		Orders p = null;
+		Orders o = null;
 
 		Database db = new Database();
 		db.connect();
 
-		p = db.getOrderById(OrderId);
+		o = db.getOrderById(OrderId);
 
 		db.close();
-		return p;
+		return o;
 	}
+	public void addOrder(Orders order) {
+		Database db = new Database();
+		db.connect();
+		db.addOrder(order);
+
+		db.close();
+	
+	}
+	public void deteleOrderByOrderId(int orderId) {
+		Database db = new Database();
+		db.connect();
+		db.deteleOrderByOrderId(orderId);
+		db.close();
+	}
+
+	
+
+	
 
 	
 
