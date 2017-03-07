@@ -4,8 +4,8 @@ public class Transactions {
 	private String firstName;
 	private String lastName;
 	private String cardType;
-	private Integer cardNumber;
-	private Integer securityCode;
+	private String cardNumber;
+	private String securityCode;
 	private String expireMonth;
 	private String billingAddress;
 	private String shippingAddress;
@@ -37,19 +37,19 @@ public class Transactions {
 		this.cardType = cardType;
 	}
 
-	public Integer getCardNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
 
-	public void setCardNumber(Integer cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 
-	public Integer getSecurityCode() {
+	public String getSecurityCode() {
 		return securityCode;
 	}
 
-	public void setSecurityCode(Integer securityCode) {
+	public void setSecurityCode(String securityCode) {
 		this.securityCode = securityCode;
 	}
 
@@ -80,7 +80,13 @@ public class Transactions {
 	public boolean validData () {
 		boolean isValid = true;
 
-		if (this.cardNumber == 0 || this.securityCode == 0) isValid = false;
+		if (this.cardNumber == null || this.cardNumber.trim().equals("") || this.cardNumber.length() != 16)
+			isValid = false;
+
+		if (this.securityCode == null || this.securityCode.trim().equals("")) {
+			if (!(this.securityCode.trim().length() == 3 || this.securityCode.trim().length() == 4))
+				isValid = false;
+		}
 
 		if (this.firstName == null || this.firstName.trim().equals("")) isValid = false;
 		if (this.lastName == null || this.lastName.trim().equals("")) isValid = false;
@@ -91,10 +97,10 @@ public class Transactions {
 
 		return isValid;
 	}
-	
+
 	public boolean sufficientFunds () {
 		boolean hasFunds = true;
-		
+
 		return hasFunds;
 	}
 }

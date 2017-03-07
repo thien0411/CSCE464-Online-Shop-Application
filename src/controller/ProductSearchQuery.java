@@ -18,20 +18,18 @@ import util.InputFormatting;
  */
 public class ProductSearchQuery extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProductSearchQuery() {
-        super();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ProductSearchQuery() {
+		super();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = InputFormatting.safeFilter(request.getParameter("searchQuery"));
-//		String category = request.getParameter("category");
 
 		HttpSession session = request.getSession();
 		session.setAttribute("query", query);
