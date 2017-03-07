@@ -277,11 +277,8 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return id;
-
 	}
-
 	public Orders getOrderById(int orderId) {
 		String query = "select * from" 
 				+ " orderItems as oi JOIN orders as o ON oi.OrderId = o.Id"
@@ -350,6 +347,21 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
+	public void deteleOrderByOrderId(int OrderId){
+		String query = "Delete from OderItems where OrderId = ?;"
+				 + " Delete from OderItems where Id = ?";
+		
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, OrderId);
+			ps.setInt(2, OrderId);
+		    ps.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}; 
 	public void addOrder(Orders order){
 		String query = "INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) VALUES"
 				+ "(?, ?, ?, ?, ?, ?)";
@@ -369,19 +381,5 @@ public class Database {
 		
 	}
 	
-	public void deteleOrderByOrderId(int OrderId){
-		String query = "Delete from OderItems where OrderId = ?;"
-				 + " Delete from OderItems where Id = ?";
-		
-		try {
-			ps = conn.prepareStatement(query);
-			ps.setInt(1, OrderId);
-			ps.setInt(2, OrderId);
-		    ps.executeQuery();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	};
 }
