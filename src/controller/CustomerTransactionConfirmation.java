@@ -70,7 +70,7 @@ public class CustomerTransactionConfirmation extends HttpServlet {
 			Orders order = t.createOrder();
 			order.setProducts(shoppingCart);
 			order.setOrderTotal(total);
-			order.setCustomerId(user.getId()); 
+			order.setCustomerId(user.getId());
 			order.dbAddOrder();
 
 			/* Clear shopping cart */

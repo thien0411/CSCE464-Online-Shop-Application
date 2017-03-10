@@ -420,19 +420,19 @@ public class Database {
 		}
 	}
 
-	public Integer getOrderId (Integer customerId, Double totalCost) {
-		String query = "SELECT Id FROM Orders WHERE CustomerId = ? AND TotalCost = ?";
+	public Integer getOrderId (Integer customerId, String date) {
+		String query = "SELECT Id FROM Orders WHERE CustomerId = ? AND OrderDate = ?";
 		Integer orderId = 0;
 		ResultSet rs;
 
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, customerId);
-			ps.setDouble(2, totalCost);
+			ps.setString(2, date);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				orderId = rs.getInt("id");
+				orderId = rs.getInt("Id");
 			}
 
 			rs.close();
@@ -440,6 +440,8 @@ public class Database {
 			e.printStackTrace();
 		}
 
+		if (orderId == 0) System.out.println("Something's wrong");
+		
 		return orderId;
 	}
 
