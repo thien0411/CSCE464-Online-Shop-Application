@@ -55,7 +55,7 @@
 </nav>
 
 <div class="container">
-  <h2>Order Number: ${order.orderNumber}</h2>
+  <h2>Order Number: ${order.orderId}</h2>
 
   <table class="table">
     <c:forEach var="item" items="${order.products}">

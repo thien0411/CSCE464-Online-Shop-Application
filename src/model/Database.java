@@ -305,12 +305,7 @@ public class Database {
 				
 				productList = this.getOrderItems(orderId);
 			}
-
-
-
 			o = new Orders(orderTotal, orderId, orderDate , productList, shippingAddress);
-
-
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -392,14 +387,14 @@ public class Database {
 		}
 	}
 
-	public void deteleOrderByOrderId(int OrderId){
-		String query = "Delete from OderItems where OrderId = ?;"
-				+ " Delete from OderItems where Id = ?";
+	public void deteleItemByItemId(int ItemId){
+		String query = "Delete from OrderItems where OrderId = ?;"
+				+ " Delete from Orders where Id = ?";
 
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, OrderId);
-			ps.setInt(2, OrderId);
+			ps.setInt(1, ItemId);
+			ps.setInt(2, ItemId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
