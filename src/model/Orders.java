@@ -7,7 +7,6 @@ public class Orders {
 	private Integer orderId;
 	private Integer CustomerId;
 	private Double orderTotal;
-	private Integer orderNumber;
 	private String orderDate;
 	private List<Product> products;
 	private String shippingAddress;
@@ -17,16 +16,16 @@ public class Orders {
 	public Orders () {
 	}
 	
-	public Orders(Double orderTotal, Integer orderNumber, String orderDate) {
+	public Orders(Double orderTotal, Integer orderId, String orderDate) {
 		this.orderTotal = orderTotal;
-		this.orderNumber = orderNumber;
+		this.orderId = orderId;
 		this.orderDate = orderDate;
 	}
 	
-	public Orders(Double orderTotal, Integer orderNumber, String orderDate, List<Product> products,
+	public Orders(Double orderTotal, Integer orderId, String orderDate, List<Product> products,
 			String shippingAddress) {
 		this.orderTotal = orderTotal;
-		this.orderNumber = orderNumber;
+		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.products = products;
 		this.shippingAddress = shippingAddress;
@@ -49,12 +48,6 @@ public class Orders {
 	}
 	public void setOrderTotal(Double orderTotal) {
 		this.orderTotal = orderTotal;
-	}
-	public Integer getOrderNumber() {
-		return orderNumber;
-	}
-	public void setOrderNumber(Integer orderNumber) {
-		this.orderNumber = orderNumber;
 	}
 	public String getOrderDate() {
 		return orderDate;
@@ -122,10 +115,11 @@ public class Orders {
 		this.dbAddOrderItems();
 	}
 	
-	public static void deteleOrderByOrderId(int orderId) {
+	public static void deteleItem(int itemId) {
 		Database db = new Database();
 		db.connect();
-		db.deteleOrderByOrderId(orderId);
+		System.out.println("gooooo herrrreeee");
+		db.deteleItemByItemId(itemId);
 		db.close();
 	}
 

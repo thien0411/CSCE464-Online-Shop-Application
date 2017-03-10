@@ -144,6 +144,10 @@ INSERT INTO Products (ProductName, ProductCategoryIndex, SellerId, ProductDescri
 INSERT INTO Products (ProductName, ProductCategoryIndex, SellerId, ProductDescription, Price, AvailableQuantity, EstimatedDeliveryDays, ProductPhotosLinks, ProductThumbnail) VALUES
   ("Mini Desktop Tower", 2, 2, "This small tower is suitable for a child's first computer. It comes with a variety of stickers.", 79.99, 15, 7, "http://maxpixel.freegreatpicture.com/static/photo/1x/Hosting-Server-Computer-Workstation-158474.png", "http://maxpixel.freegreatpicture.com/static/photo/1x/Hosting-Server-Computer-Workstation-158474.png");
 
+
+
+INSERT INTO Products (ProductName, ProductCategoryIndex, SellerId, ProductDescription, Price, AvailableQuantity, EstimatedDeliveryDays, ProductPhotosLinks, ProductThumbnail) VALUES
+  ("Mouse", 2, 2, "Tabc de e d da ", 99.99, 5, 7, "http://maxpixel.freegreatpicture.com/static/photo/1x/Hosting-Server-Computer-Workstation-158474.png", "http://maxpixel.freegreatpicture.com/static/photo/1x/Hosting-Server-Computer-Workstation-158474.png");
 ## ProductQA
 INSERT INTO ProductQA (ProductId, CustomerId, Question, Answer) VALUES
   (1, 2, "So is this to use in the shower?", "No! This is an electronic. Please don't!");
@@ -164,14 +168,6 @@ INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) 
   (2, 1, "2016-12-15", 4, "My kids love this! I think they'll become interested in STEM subjects.");
 INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
   (2, 3, "2016-11-25", 4, "It's pretty nice. I would have liked some other parts, but that's fine.");
-
-## Orders
-INSERT INTO Orders(CustomerID, TotalCost, OrderDate, ShippingAddress, BillingAddress, CreditCardNumber) VALUES
-(4, 1000, "2017-01-13", "Shipping Addess 1", "Billing Adress 1", "123123123");
-
-## OrderItems
-INSERT INTO OrderItems(OrderId, SellerId, ProductId, ProductPrice, Quantity, ShippingStatus, ShippingRefNo, Status) VALUES
-(1, 1, 1,  200, 2, 1, 111, 1);
 
 -- SELECT * FROM ProductCategories;
 -- SELECT * FROM Users;

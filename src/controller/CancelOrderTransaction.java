@@ -28,11 +28,7 @@ public class CancelOrderTransaction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int orderId = Integer.parseInt(request.getParameter("orderId"));
-		
-		Orders order = Orders.getOrder(orderId);
-		
-		request.setAttribute("order", order);
+		int itemId = Integer.parseInt(request.getParameter("itemId"));
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("CancellationConfirmation.jsp");
 		dispatcher.forward(request, response);

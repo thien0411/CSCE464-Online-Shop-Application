@@ -67,12 +67,12 @@
     
         <c:forEach var="order" items="${orderList}">
         	<tr>
-         		<td>${order.orderNumber}</td>
+         		<td>${order.orderId}</td>
          		<td>$${order.orderTotal}</td>
          		<td>${order.orderDate}</td>
          		<td>
          			<form action="ManageOrder" method="post">
-                <input type="hidden" name="orderId" value="${order.orderNumber}">
+                <input type="hidden" name="orderId" value="${order.orderId}">
                 <input type="submit" class="btn btn-default" value="View ManageOrder">
            		</form>
          	  </td>
