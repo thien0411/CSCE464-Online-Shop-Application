@@ -178,5 +178,7 @@ INSERT INTO OrderItems(OrderId, SellerId, ProductId, ProductPrice, Quantity, Shi
 -- SELECT * FROM Products;
 -- SELECT * FROM ProductQA;
 -- SELECT * FROM CustomerReviews;
--- SELECT * FROM orders;
--- SELECT * FROM orderItems;
+SELECT * FROM Orders;
+SELECT * FROM OrderItems;
+
+SELECT * FROM Orders o JOIN OrderItems oi on o.id = oi.OrderId;

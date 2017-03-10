@@ -133,7 +133,7 @@ public class Orders {
 		Integer id = 0;
 		Database db = new Database();
 		db.connect();
-		id = db.getOrderId(this.CustomerId, this.orderTotal);
+		id = db.getOrderId(this.CustomerId, this.orderDate);
 		db.close();
 		this.orderId = id;
 	}
