@@ -169,6 +169,10 @@ INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) 
 INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) VALUES
   (2, 3, "2016-11-25", 4, "It's pretty nice. I would have liked some other parts, but that's fine.");
 
+
+INSERT INTO OrderItems(OrderId, SellerId, ProductId, ProductPrice, Quantity, ShippingStatus, ShippingRefNo, Status) VALUES
+(2, 2, 1,  30, 2, 1, 111, 1);
+
 -- SELECT * FROM ProductCategories;
 -- SELECT * FROM Users;
  SELECT * FROM Products;
@@ -176,3 +180,7 @@ INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) 
 -- SELECT * FROM CustomerReviews;
 SELECT * FROM orders;
 SELECT * FROM orderItems;
+
+
+-- Delete from OrderItems where OrderId =7;
+-- Delete from Orders where Id = 7;

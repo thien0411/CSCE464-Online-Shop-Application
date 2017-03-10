@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Orders;
+import model.Product;
 
 
 /**
@@ -28,7 +29,9 @@ public class CancelOrderTransaction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int itemId = Integer.parseInt(request.getParameter("itemId"));
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		
+		 
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("CancellationConfirmation.jsp");
 		dispatcher.forward(request, response);

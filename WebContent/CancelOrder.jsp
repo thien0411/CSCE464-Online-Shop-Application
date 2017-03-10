@@ -51,20 +51,21 @@
 </nav>
 
 <div class="container">
-  <h2>Do you want to cancel the following order?</h2>
+  <h2>Do you want to cancel the following item?</h2>
 
   <table class="table">
     <tr>
       <td class="order-item">
-        <p>Order Number: ${order.orderNumber}</p>
-        <p>Order Total: ${order.orderTotal}</p>
-        <p>Order Date: ${order.orderDate}</p>
-        <p>Shipping Address: ${order.shippingAddress}</p>
+        <p>Name: ${product.name}</p>
+        <p>Category: ${order.category}</p>
+        <p>Seller Name: ${order.sellerName}</p>
+        <p>Price: ${product.price}</p>
+        <p>Description: ${product.description}</p>
       </td>
 
       <td>
         <form action="CancelOrderTransaction" method="post">
-          <input type="hidden" name="orderId" value="${order.orderId}">
+          <input type="hidden" name="productId" value="${product.Id}">
           <input type="submit" class="btn btn-default" value="Confirm Cancellation">
         </form>
         <br>

@@ -74,7 +74,8 @@
           </form>
           <br>
           <form action="CancelOrder" method="post">
-            <input type="hidden" name="orderId" value="${item.id}">
+            <input type="hidden" name="productId" value="${item.id}">
+            <input type="hidden" name="orderId" value="${order.orderId}">
             <input type="submit" class="btn btn-default" value="Cancel">
           </form>
         </td>
