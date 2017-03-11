@@ -28,12 +28,14 @@ public class CancelOrder extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int productId = Integer.parseInt(request.getParameter("productId"));
-		int orderId = Integer.parseInt(request.getParameter("OrderId"));
+		int itemId = Integer.parseInt(request.getParameter("itemId"));
+		int orderId = Integer.parseInt(request.getParameter("orderId"));
 		
-		 Product product = Product.getProduct(productId);
+		Product orderItem  = Product.getOrderItemForCancellation(itemId);
 		
-		request.setAttribute("product", product);
+		
+		request.setAttribute("orderItem", orderItem);
+		request.setAttribute("orderId", orderId);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("CancelOrder.jsp");
 		dispatcher.forward(request, response);

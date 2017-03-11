@@ -180,6 +180,11 @@ public class Product {
 		DecimalFormat df = new DecimalFormat(".##");
 		return df.format(this.price);
 	}
+	
+	public String formattedTotalPrice (){
+		DecimalFormat df = new DecimalFormat(".##");
+		return df.format(this.price * this.quantityRequested);
+	}
 
 	public String averageStars () {
 		int size = this.reviews.size();
@@ -206,6 +211,19 @@ public class Product {
 		db.connect();
 
 		p = db.getProductById(productId);
+
+		db.close();
+		return p;
+	}
+	
+	public static Product getOrderItemForCancellation(int itemId) {
+		System.out.println("Gohereeeeee");
+		Product p = null;
+
+		Database db = new Database();
+		db.connect();
+
+		p = db.getOrderItemByItemId(itemId);
 
 		db.close();
 		return p;

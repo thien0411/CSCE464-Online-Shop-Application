@@ -102,6 +102,7 @@ public class Orders {
 		db.close();
 		return o;
 	}
+	
 	public static void addOrder(Orders order) {
 		Database db = new Database();
 		db.connect();
@@ -122,7 +123,7 @@ public class Orders {
 		db.deteleItemByItemId(itemId);
 		db.close();
 	}
-
+	
 	private void dbGetOrderId () {
 		Integer id = 0;
 		Database db = new Database();
@@ -138,6 +139,8 @@ public class Orders {
 		db.addOrderItems(this.orderId, this.products);
 		db.close();
 	}
+	
+	
 
 	
 

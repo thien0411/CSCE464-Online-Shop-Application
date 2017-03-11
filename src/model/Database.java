@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Connection;
+import java.sql.Connection; 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -147,6 +147,7 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public Product getProductById(int productId) {
 		String query = "SELECT p.*, u.Username FROM Products p "
@@ -314,6 +315,41 @@ public class Database {
 		return o;
 	}
 	
+	public Product getOrderItemByItemId(int itemId){
+		String query = "SELECT oi.*, u.Username, p.*"
+				+ "FROM OrderItems oi "
+				+ "JOIN Products p on oi.ProductId = p.Id "
+				+ "JOIN Users u on u.Id = p.SellerId "
+				+ "WHERE oi.Id = ?";
+				System.out.println("Item Iddd:  " + itemId);
+				boolean isShipped = false;
+				Product p = null;
+				ResultSet rs;
+				try {
+					ps = conn.prepareStatement(query);
+					ps.setInt(1, itemId);
+					rs = ps.executeQuery();
+					
+					if (rs.next()) {
+						Integer productId = rs.getInt("ProductId");
+						String productName = rs.getString("ProductName");
+						Integer quantity = rs.getInt("Quantity");
+						Double price = rs.getDouble("Price");
+						String sellerName = rs.getString("Username");
+						Integer shippingStatus = rs.getInt("ShippingStatus");
+						if (shippingStatus.equals(1)) isShipped = true;
+						
+						p = new Product(productName, sellerName, price, quantity, isShipped);
+						System.out.println("Creat a new productttt");
+						p.setId(productId);
+					}
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return p;
+	}
+	
 	private List<Product> getOrderItems (int orderId) {
 		String query = "SELECT oi.Quantity, oi.ShippingStatus, u.Username, p.*"
 				+ "FROM OrderItems oi "
@@ -471,3 +507,5 @@ public class Database {
 		}
 	}
 }
+	
+	

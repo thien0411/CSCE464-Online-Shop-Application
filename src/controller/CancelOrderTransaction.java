@@ -30,7 +30,7 @@ public class CancelOrderTransaction extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int productId = Integer.parseInt(request.getParameter("productId"));
-		
+		int orderId = Integer.parseInt(request.getParameter("orderId"));
 		 
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("CancellationConfirmation.jsp");

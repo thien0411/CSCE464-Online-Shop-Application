@@ -63,7 +63,7 @@
         <td class="order-item">
           <h3>Product Name: <c:out value="${item.name}"/></h3>
           <p>Product quantity: ${item.quantityRequested}</p>
-          <p>Total Price: ${item.formattedPrice()}</p>
+          <p>Total Price: ${item.formattedTotalPrice()}</p>
           <p>Seller Name: <c:out value="${item.sellerName}"/></p>
           <p>Shipping Status: ${item.isShipped ? "Shipped" : "Not yet shipped"}</p>
         </td>
@@ -74,7 +74,7 @@
           </form>
           <br>
           <form action="CancelOrder" method="post">
-            <input type="hidden" name="productId" value="${item.id}">
+            <input type="hidden" name="itemId" value="${item.id}">
             <input type="hidden" name="orderId" value="${order.orderId}">
             <input type="submit" class="btn btn-default" value="Cancel">
           </form>

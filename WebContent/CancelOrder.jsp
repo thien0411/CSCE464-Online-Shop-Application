@@ -56,16 +56,18 @@
   <table class="table">
     <tr>
       <td class="order-item">
-        <p>Name: ${product.name}</p>
-        <p>Category: ${order.category}</p>
-        <p>Seller Name: ${order.sellerName}</p>
-        <p>Price: ${product.price}</p>
-        <p>Description: ${product.description}</p>
+      	<p>OrderNumber: ${orderId}</p>
+        <p>Item Name: ${orderItem.name}</p>
+        <p>Quantity: ${orderItem.quantityRequested}</p>
+        <p>Seller Name: ${orderItem.sellerName}</p>
+        <p>Price: ${orderItem.formattedTotalPrice()}</p>
+        <p>Shipping Status: ${orderItem.isShipped ? "Shipped" : "Not yet shipped"}</p>
       </td>
 
       <td>
         <form action="CancelOrderTransaction" method="post">
-          <input type="hidden" name="productId" value="${product.Id}">
+          <input type="hidden" name="productId" value="${orderItem.id}">
+          <input type="hidden" name="orderId" value="${order.orderId}">
           <input type="submit" class="btn btn-default" value="Confirm Cancellation">
         </form>
         <br>
