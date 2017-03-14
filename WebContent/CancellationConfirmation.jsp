@@ -52,19 +52,22 @@
 
 <div class="container">
   <h2>Cancel Confirmation! </h2>
-  <h3>The following order(s) has been cancelled:</h3>
+  <h3>The following item(s) has been cancelled:</h3>
   
   <table class="table">
     <tr>
       <td class="order-item">
-        <p>Order Number: ${order.orderNumber}</p>
-        <p>Order Total: ${order.orderTotal}</p>
-        <p>Order Date: ${order.orderDate}</p>
-        <p>Shipping Address: ${order.shippingAddress}</p>
+      	<p>OrderNumber: ${orderId}</p>
+        <p>Item Name: ${orderItem.name}</p>
+        <p>Quantity: ${orderItem.quantityRequested}</p>
+        <p>Seller Name: ${orderItem.sellerName}</p>
+        <p>Price: ${orderItem.formattedTotalPrice()}</p>
+        <p>Status: "Cancelled"</p>
+    
       </td>
     </tr>
   </table>
- <h3>The total amount of $${order.orderTotal} has been refund to your credit card account.</h3>
+ <h3>The total amount of $${orderItem.formattedTotalPrice()} has been refund to your credit card account.</h3>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

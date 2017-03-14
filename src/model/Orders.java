@@ -12,7 +12,6 @@ public class Orders {
 	private String shippingAddress;
 	private String billingAddress;
 	private String creditCardNumber;
-
 	public Orders () {
 	}
 	
@@ -116,11 +115,11 @@ public class Orders {
 		this.dbAddOrderItems();
 	}
 	
-	public static void deteleItem(int itemId) {
+	public static void deteleItem(int itemId, int orderId) {
 		Database db = new Database();
 		db.connect();
 		System.out.println("gooooo herrrreeee");
-		db.deteleItemByItemId(itemId);
+		db.deteleOrderItem(itemId, orderId);
 		db.close();
 	}
 	
@@ -139,9 +138,5 @@ public class Orders {
 		db.addOrderItems(this.orderId, this.products);
 		db.close();
 	}
-	
-	
-
-	
 
 }

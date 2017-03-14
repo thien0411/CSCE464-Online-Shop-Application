@@ -66,8 +66,8 @@
 
       <td>
         <form action="CancelOrderTransaction" method="post">
-          <input type="hidden" name="productId" value="${orderItem.id}">
-          <input type="hidden" name="orderId" value="${order.orderId}">
+          <input type="hidden" name="itemId" value="${orderItem.id}">
+          <input type="hidden" name="orderId" value="${orderId}">
           <input type="submit" class="btn btn-default" value="Confirm Cancellation">
         </form>
         <br>

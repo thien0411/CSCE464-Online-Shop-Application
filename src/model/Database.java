@@ -320,8 +320,8 @@ public class Database {
 				+ "FROM OrderItems oi "
 				+ "JOIN Products p on oi.ProductId = p.Id "
 				+ "JOIN Users u on u.Id = p.SellerId "
-				+ "WHERE oi.Id = ?";
-				System.out.println("Item Iddd:  " + itemId);
+				+ "WHERE  oi.Id = ?";
+				//System.out.println("Item Iddd:  " + itemId);
 				boolean isShipped = false;
 				Product p = null;
 				ResultSet rs;
@@ -330,7 +330,7 @@ public class Database {
 					ps.setInt(1, itemId);
 					rs = ps.executeQuery();
 					
-					if (rs.next()) {
+					rs.next();
 						Integer productId = rs.getInt("ProductId");
 						String productName = rs.getString("ProductName");
 						Integer quantity = rs.getInt("Quantity");
@@ -340,15 +340,29 @@ public class Database {
 						if (shippingStatus.equals(1)) isShipped = true;
 						
 						p = new Product(productName, sellerName, price, quantity, isShipped);
-						System.out.println("Creat a new productttt");
+						//System.out.println("Creat a new productttt");
 						p.setId(productId);
-					}
+					
 					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				return p;
 	}
+	
+	public void deteleOrderItem(int ItemId, int OrderId){
+		String query = "Delete from OrderItems where OrderId = ? AND ProductId = ?";
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, ItemId);
+			ps.setInt(2, OrderId);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("deleteeee itemmmm");
+	} 
 	
 	private List<Product> getOrderItems (int orderId) {
 		String query = "SELECT oi.Quantity, oi.ShippingStatus, u.Username, p.*"
@@ -423,19 +437,7 @@ public class Database {
 		}
 	}
 
-	public void deteleItemByItemId(int ItemId){
-		String query = "Delete from OrderItems where OrderId = ?;"
-				+ " Delete from Orders where Id = ?";
-
-		try {
-			ps = conn.prepareStatement(query);
-			ps.setInt(1, ItemId);
-			ps.setInt(2, ItemId);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	} 
+	
 
 	public void addOrder(Orders order){
 		String query = "INSERT INTO Orders "

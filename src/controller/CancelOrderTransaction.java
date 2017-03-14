@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,9 +29,20 @@ public class CancelOrderTransaction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int productId = Integer.parseInt(request.getParameter("productId"));
+		int itemId = Integer.parseInt(request.getParameter("itemId"));
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
 		 
+		System.out.println("In cancel confirm: orderIem Id = " + itemId + "    OrderId: " + orderId);
+		
+		Product orderItem  = Product.getOrderItemForCancellation(itemId);
+		
+		//System.out.println("Product Id = " + orderItem.getId() + "    OrderId: " + orderId);
+		//Orders order = Orders.getOrder(orderId);
+		Orders.deteleItem(itemId, orderId);
+	
+		
+		request.setAttribute("orderItem", orderItem);
+		request.setAttribute("orderId", orderId);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("CancellationConfirmation.jsp");
 		dispatcher.forward(request, response);
