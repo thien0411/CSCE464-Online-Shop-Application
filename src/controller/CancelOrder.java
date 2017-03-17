@@ -30,8 +30,8 @@ public class CancelOrder extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
-		
-		Product orderItem  = Product.getOrderItemForCancellation(itemId);
+		System.out.println("ItemId:   " + itemId + "   orderId: " +  orderId);
+		Product orderItem  = Product.getOrderItemForCancellation(itemId, orderId);
 		
 		
 		request.setAttribute("orderItem", orderItem);

@@ -177,13 +177,13 @@ INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) 
 SELECT * FROM orders;
 SELECT * FROM orderItems;
 
-/*
+
 SELECT oi.*, u.Username, p.*
 				FROM OrderItems oi 
 				JOIN Products p on oi.ProductId = p.Id 
 				JOIN Users u on u.Id = p.SellerId 
-				WHERE oi.Id = 8;
-                */
+				WHERE  oi.ProductId = 1 and oi.OrderId = 4;
+                
 
 -- Delete from OrderItems where OrderId =7;
 -- Delete from Orders where Id = 7;

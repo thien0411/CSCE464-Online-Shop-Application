@@ -315,12 +315,12 @@ public class Database {
 		return o;
 	}
 	
-	public Product getOrderItemByItemId(int itemId){
+	public Product getOrderItemByItemId(int itemId, int orderId){
 		String query = "SELECT oi.*, u.Username, p.*"
 				+ "FROM OrderItems oi "
 				+ "JOIN Products p on oi.ProductId = p.Id "
 				+ "JOIN Users u on u.Id = p.SellerId "
-				+ "WHERE  oi.Id = ?";
+				+ "WHERE  oi.ProductId = ? AND oi.OrderId  = ?";
 				//System.out.println("Item Iddd:  " + itemId);
 				boolean isShipped = false;
 				Product p = null;
@@ -328,6 +328,7 @@ public class Database {
 				try {
 					ps = conn.prepareStatement(query);
 					ps.setInt(1, itemId);
+					ps.setInt(2, orderId);
 					rs = ps.executeQuery();
 					
 					rs.next();

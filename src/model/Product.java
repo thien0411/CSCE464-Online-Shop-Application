@@ -216,14 +216,14 @@ public class Product {
 		return p;
 	}
 	
-	public static Product getOrderItemForCancellation(int itemId) {
+	public static Product getOrderItemForCancellation(int itemId, int orderId) {
 		System.out.println("Gohereeeeee");
 		Product p = null;
 
 		Database db = new Database();
 		db.connect();
 
-		p = db.getOrderItemByItemId(itemId);
+		p = db.getOrderItemByItemId(itemId, orderId);
 
 		db.close();
 		return p;
