@@ -54,11 +54,25 @@ public class UpdateShoppingCart extends HttpServlet {
 		}
 
 		if (action.equals("add")) {
-			/* Add a product, if quantity is available */
-			p = Product.getProduct(productId);
-			p.setQuantityRequested(quantity);
+			/* Check if item is already in cart,
+			 * if so, add the amount to the request */
+			boolean found = false;
 
-			if (p.validQuantity()) shoppingCart.add(p);
+			for (Product check : shoppingCart) {
+				if (check.getId().equals(productId)) {
+					found = true;
+					check.requestAmountChange(quantity);
+					break;
+				}
+			}
+
+			/* Add a product, if quantity is available */
+			if (!found) {
+				p = Product.getProduct(productId);
+				p.setQuantityRequested(quantity);
+				if (p.validQuantity()) shoppingCart.add(p);
+			}
+
 		} else if (action.equals("delete")) {
 			/* Find and remove the item */
 			for (int i = 0; i < shoppingCart.size(); i++) {

@@ -175,6 +175,16 @@ public class Product {
 		db.close();
 		return productList;
 	}
+	
+	public boolean requestAmountChange (int change) {
+		if (this.quantityRequested != null && this.quantityRequested + change < this.availableQuantity) {
+			this.quantityRequested += change;
+			return true;
+		}
+		else {
+			return false;	
+		}
+	}
 
 	public String formattedPrice () {
 		DecimalFormat df = new DecimalFormat(".##");
