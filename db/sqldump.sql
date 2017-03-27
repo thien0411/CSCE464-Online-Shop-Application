@@ -170,7 +170,7 @@ INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review) 
   (2, 3, "2016-11-25", 4, "It's pretty nice. I would have liked some other parts, but that's fine.");
 
 -- SELECT * FROM ProductCategories;
--- SELECT * FROM Users;
+SELECT * FROM Users;
  SELECT * FROM Products;
 -- SELECT * FROM ProductQA;
 -- SELECT * FROM CustomerReviews;
@@ -178,12 +178,9 @@ SELECT * FROM orders;
 SELECT * FROM orderItems;
 
 
-SELECT oi.*, u.Username, p.*
-				FROM OrderItems oi 
-				JOIN Products p on oi.ProductId = p.Id 
-				JOIN Users u on u.Id = p.SellerId 
-				WHERE  oi.ProductId = 1 and oi.OrderId = 4;
+-- SELECT oi.*, u.Username, p.* FROM OrderItems oi JOIN Products p on oi.ProductId = p.Id  JOIN Users u on u.Id = p.SellerId WHERE  oi.ProductId = 1 and oi.OrderId = 3;
                 
+-- Update  orders set TotalCost = 500 where id = 2;
 
--- Delete from OrderItems where OrderId =7;
--- Delete from Orders where Id = 7;
+-- Delete from OrderItems where OrderId =2;
+--  Delete from Orders where Id = 1;

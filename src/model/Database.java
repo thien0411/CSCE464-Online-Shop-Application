@@ -351,20 +351,52 @@ public class Database {
 				return p;
 	}
 	
-	public void deteleOrderItem(int ItemId, int OrderId){
+	public void deteleOrderItem(int itemId, int orderId){
+		updateTotal(itemId, orderId);
 		String query = "Delete from OrderItems where OrderId = ? AND ProductId = ?";
 
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, OrderId);
-			ps.setInt(2, ItemId);
-			ps.executeUpdate();
+			ps.setInt(1, orderId);
+			ps.setInt(2, itemId);
+			ps.executeUpdate();	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("deleteeee itemmmm");
 	} 
 	
+	private void updateTotal(int itemId, int orderId) {
+		Orders order = this.getOrderById(orderId);
+		Product product = this.getOrderItemByItemId(itemId, orderId);
+		
+		double updatedTotal = order.getOrderTotal() - Double.parseDouble(product.formattedTotalPrice());
+		String query = "Update orders set TotalCost ="+  updatedTotal + "where id = ?;";
+		
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, orderId);
+			
+			ps.executeUpdate();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void deleteOrder(int orderId) {
+		String query = "Delete from Orders where Id = ?;";
+		
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, orderId);
+			
+			ps.executeUpdate();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Delete Entire order if total price is 0");
+		
+	}
+
 	private List<Product> getOrderItems (int orderId) {
 		String query = "SELECT oi.Quantity, oi.ShippingStatus, u.Username, p.*"
 				+ "FROM OrderItems oi "

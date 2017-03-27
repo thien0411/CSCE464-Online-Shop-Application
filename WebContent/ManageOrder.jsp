@@ -36,8 +36,7 @@
       <ul class="nav navbar-nav">
         <li><a href="CustomerHomePage.jsp">Home</a></li>
         <li><a href="View&CheckoutShoppingCart.jsp">Shopping Cart (<c:out value="${shoppingCart.size()}"/>)</a></li>
-        <li><a href="ManageOrder.jsp">Manage Order</a></li>
-        <li class="dropdown">
+               <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
             <c:out value="${user.userName}"/> <span class="caret"></span>

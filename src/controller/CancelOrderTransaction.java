@@ -32,7 +32,7 @@ public class CancelOrderTransaction extends HttpServlet {
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
 		 
-		System.out.println("In cancel confirm: orderIem Id = " + itemId + "    OrderId: " + orderId);
+		//System.out.println("In cancel confirm: orderIem Id = " + itemId + "    OrderId: " + orderId);
 		
 		Product orderItem  = Product.getOrderItemForCancellation(itemId, orderId);
 		
