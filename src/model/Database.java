@@ -356,8 +356,8 @@ public class Database {
 
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, ItemId);
-			ps.setInt(2, OrderId);
+			ps.setInt(1, OrderId);
+			ps.setInt(2, ItemId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
