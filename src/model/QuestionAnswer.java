@@ -37,4 +37,9 @@ public class QuestionAnswer {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+	
+	public static boolean addQuestion (Users customer, Integer productId, String question) {
+		/* TODO: Add question to database */
+		return false;
+	}
 }

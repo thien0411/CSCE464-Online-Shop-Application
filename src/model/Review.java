@@ -90,4 +90,9 @@ public class Review {
 	public String stars () {
 		return Review.stars(this.rating);
 	}
+	
+	public static boolean addReview (Users customer, Integer productId, String customerReview, Integer rating) {
+		// TODO: Add review to database
+		return false;
+	}
 }

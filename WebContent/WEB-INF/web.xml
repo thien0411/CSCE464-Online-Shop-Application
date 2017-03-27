@@ -139,4 +139,24 @@
     <servlet-name>CancelOrderTransaction</servlet-name>
     <url-pattern>/CancelOrderTransaction</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustomerReviews</display-name>
+    <servlet-name>CustomerReviews</servlet-name>
+    <servlet-class>controller.CustomerReviews</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerReviews</servlet-name>
+    <url-pattern>/CustomerReviews</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustomerQA</display-name>
+    <servlet-name>CustomerQA</servlet-name>
+    <servlet-class>controller.CustomerQA</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerQA</servlet-name>
+    <url-pattern>/CustomerQA</url-pattern>
+  </servlet-mapping>
 </web-app>
