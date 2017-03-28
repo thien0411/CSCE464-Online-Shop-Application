@@ -91,6 +91,8 @@ public class UpdateShoppingCart extends HttpServlet {
 		}
 
 		session.setAttribute("formattedCartTotal", df.format(total));
+		
+		/* TODO: Output JSON instead of redirecting, for AJAX */
 		response.sendRedirect("View&CheckoutShoppingCart.jsp");
 	}
 
