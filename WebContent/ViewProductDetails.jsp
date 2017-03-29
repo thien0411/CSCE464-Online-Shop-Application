@@ -32,7 +32,7 @@
     <div class="collapse navbar-collapse" id="head-nav">
       <ul class="nav navbar-nav">
         <li><a href="CustomerHomePage.jsp">Home</a></li>
-        <li><a href="View&CheckoutShoppingCart.jsp">Shopping Cart (<c:out value="${shoppingCart.size()}"/>)</a></li>
+        <li><a href="View&CheckoutShoppingCart.jsp" id="cartCount">Shopping Cart (<c:out value="${shoppingCart.size()}"/>)</a></li>
         <li><a href="ManageOrder.jsp">Manage Order</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -74,15 +74,15 @@
       <h3>Description</h3>
       <p>${product.description}</p>
 
-      <form action="UpdateShoppingCart" method="post">
-        <input type="hidden" id="productId" name="productId" value="${product.id}">
-        <input type="hidden" name="action" value="add">
+      <div>
+        <input type="hidden" name="productId" id="productId" value="${product.id}">
 
         Quantity:
         <input type="number" name="quantity" id="quantity" min="0" max="${product.availableQuantity}">
-        <br />
-        <button type="button" class="btn btn-primary" id="add-product">Add To Cart</button>
-      </form>
+      </div>
+
+      <button type="button" class="btn btn-primary" id="add-product">Add To Cart</button>
+      <div id="successMsg"></div>
     </div>
   </div>
 
@@ -107,7 +107,7 @@
         </tr>
       </c:forEach>
       <tr>
-        <td>
+        <td id="input-question-area">
           <h4>Ask a Question!</h4>
 
           <div>
@@ -193,11 +193,15 @@
         rating: rating
       }
 
+      $('#submit-review').prop('disabled', true)
+
       $.post('CustomerReviews', dataSend, (data, status) => {
         if (data == 0) {
+          $('#submit-review').prop('disabled', false)
           alert('We could not process your review.')
         } else {
           /* Success! Refresh the page */
+          $('#input-review-area').html('<h4>Successfully submitted review!</h4>')
           location.reload(true)
         }
       })
@@ -218,11 +222,15 @@
         question: question
       }
 
+      $('#submit-question').prop('disabled', true)
+
       $.post('CustomerQA', dataSend, (data, status) => {
         if (data == 0) {
+          $('#submit-question').prop('disabled', false)
           alert('We could not process your question.')
         } else {
           /* Success! Refresh the page */
+          $('#input-question-area').html('<h4>Successfully submitted question!</h4>')
           location.reload(true)
         }
       })
@@ -230,8 +238,48 @@
 
     $('#add-product').click(() => {
       /* Sends productId, quantity, action ('add') */
+      var productId = $('#productId').val()
+      var quantity = $('#quantity').val()
+      var action = 'add'
 
-      // TODO: Define this function
+      if (quantity == 0) {
+        alert('You must select at least 1 item to add to your cart')
+        return
+      }
+
+      var dataSend = {
+        productId: productId,
+        quantity: quantity,
+        action: action
+      }
+
+      $('#add-product').prop('disabled', true)
+
+      $.post('UpdateShoppingCart', dataSend, (data, status) => {
+        var result = JSON.parse(data)
+
+        console.log('Result', JSON.stringify(result, null, 2))
+
+        switch (result.success) {
+          case 0:
+            $('#add-product').prop('disabled', false)
+            alert('We could not process your request.')
+          break;
+          case 1:
+            /* Display success message */
+            /* Update Cart Item Count */
+            /* Removes 'Add to Cart' button to prevent duplicates */
+            $('#cartCount').text('Shopping Cart (' + result.cartTotal + ')')
+            $('#successMsg').html('<h3>*Successfully added to cart!*</h3>')
+            $('#add-product').remove()
+            $('#quantity').prop('disabled', true)
+            break;
+          case 2:
+            $('#add-product').prop('disabled', false)
+            alert('The quantity requested is not available.')
+            break;
+        }
+      })
     })
   })
 </script>

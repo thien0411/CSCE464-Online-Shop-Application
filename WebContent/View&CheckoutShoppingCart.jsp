@@ -102,5 +102,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
+<script>
+  /* TODO: Define AJAX for updating shopping cart */
+</script>
 </body>
 </html>

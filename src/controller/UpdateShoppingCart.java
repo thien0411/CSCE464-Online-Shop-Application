@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,6 +54,8 @@ public class UpdateShoppingCart extends HttpServlet {
 			session.setAttribute("shoppingCart", shoppingCart);
 		}
 
+		int status = 0;
+		
 		if (action.equals("add")) {
 			/* Check if item is already in cart,
 			 * if so, add the amount to the request */
@@ -61,7 +64,12 @@ public class UpdateShoppingCart extends HttpServlet {
 			for (Product check : shoppingCart) {
 				if (check.getId().equals(productId)) {
 					found = true;
-					check.requestAmountChange(quantity);
+					if (check.requestAmountChange(quantity)) {
+						status = 1;
+					} else {
+						status = 2;
+					}
+
 					break;
 				}
 			}
@@ -70,7 +78,12 @@ public class UpdateShoppingCart extends HttpServlet {
 			if (!found) {
 				p = Product.getProduct(productId);
 				p.setQuantityRequested(quantity);
-				if (p.validQuantity()) shoppingCart.add(p);
+				if (p.validQuantity()) {
+					shoppingCart.add(p);
+					status = 1;
+				} else {
+					status = 2;
+				}
 			}
 
 		} else if (action.equals("delete")) {
@@ -78,6 +91,7 @@ public class UpdateShoppingCart extends HttpServlet {
 			for (int i = 0; i < shoppingCart.size(); i++) {
 				if (shoppingCart.get(i).getId().equals(productId)) {
 					shoppingCart.remove(i);
+					status = 1;
 					break;
 				}
 			}
@@ -93,7 +107,13 @@ public class UpdateShoppingCart extends HttpServlet {
 		session.setAttribute("formattedCartTotal", df.format(total));
 		
 		/* TODO: Output JSON instead of redirecting, for AJAX */
-		response.sendRedirect("View&CheckoutShoppingCart.jsp");
+//		response.sendRedirect("View&CheckoutShoppingCart.jsp");
+		
+		PrintWriter out = response.getWriter();
+		out.println("{");
+		out.println("\"cartTotal\": " + shoppingCart.size() + ",");
+		out.println("\"success\": " + status);
+		out.println("}");
 	}
 
 	/**
