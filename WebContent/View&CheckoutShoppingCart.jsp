@@ -9,46 +9,10 @@
 
 <title>Shopping Cart</title>
 
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="css/main.css">
+<jsp:include page="/WEB-INF/stylesheets.html" />
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed"
-      data-toggle="collapse" data-target="#head-nav"
-      aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="CustomerHomePage.jsp">Welcome</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="head-nav">
-      <ul class="nav navbar-nav">
-        <li><a href="CustomerHomePage.jsp">Home</a></li>
-        <li><a href="View&CheckoutShoppingCart.jsp">Shopping Cart (<c:out value="${shoppingCart.size()}"/>)</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-          role="button" aria-haspopup="true" aria-expanded="false">
-            <c:out value="${user.userName}"/> <span class="caret"></span>
-          </a>
-
-          <ul class="dropdown-menu">
-            <li><a href="ViewOrders">View Orders</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="Logout">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<%@ include file="/WEB-INF/navbar-common.jsp" %>
 
 <div class="container">
   <h2>Shopping Cart</h2>
@@ -78,16 +42,16 @@
               <td>$<c:out value="${item.formattedPrice()}"/></td>
               <td><c:out value="${item.estimatedDeliveryDays}"/></td>
               <td>
-                <form action="UpdateShoppingCart" method="post">
+                <div>
                   <input type="hidden" name="productId" value="${item.id}">
                   <input type="hidden" name="action" value="delete">
-                  <input type="submit" class="btn btn-default" value="Delete Item">
-                </form>
+                  <input type="submit" class="btn btn-default remove-item" value="Delete Item">
+                </div>
               </td>
             </tr>
           </c:forEach>
         <tr>
-          <td colspan="7"><h3>Total: $<c:out value="${formattedCartTotal}"/></h3></td>
+          <td colspan="7"><h3>Total: $<span id="formattedTotal"><c:out value="${formattedCartTotal}"/></span></h3></td>
         </tr>
       </table>
 
@@ -104,6 +68,39 @@
 <script src="js/main.js"></script>
 <script>
   /* TODO: Define AJAX for updating shopping cart */
+  
+  $(document).ready(() => {
+    $('.remove-item').click(function () {
+      /* Sends action, productId */
+      var action = $(this).prev().val()
+      var id = $(this).prev().prev().val()
+      
+      var dataSend = {
+        action: action,
+        productId: id
+      }
+      
+      $(this).prop('disabled', true)
+      
+      var temp = $(this)
+      
+      $.post('UpdateShoppingCart', dataSend, (data, status) => {
+        var result = JSON.parse(data)
+        
+        switch (result.success) {
+          case 0:
+            temp.prop('disabled', false)
+            alert("We could not process your request.")
+            break;
+          case 1:
+            $('#cartCount').text('Shopping Cart (' + result.cartTotal + ')')
+            $('#formattedTotal').text(result.formattedTotal)
+            temp.after('<h3>*Item Removed*</h3>')
+            temp.remove()
+        }
+      })
+    })
+  })
 </script>
 </body>
 </html>

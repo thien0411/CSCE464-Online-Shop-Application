@@ -321,7 +321,6 @@ public class Database {
 				+ "JOIN Products p on oi.ProductId = p.Id "
 				+ "JOIN Users u on u.Id = p.SellerId "
 				+ "WHERE  oi.ProductId = ? AND oi.OrderId  = ?";
-				//System.out.println("Item Iddd:  " + itemId);
 				boolean isShipped = false;
 				Product p = null;
 				ResultSet rs;
@@ -341,7 +340,6 @@ public class Database {
 						if (shippingStatus.equals(1)) isShipped = true;
 						
 						p = new Product(productName, sellerName, price, quantity, isShipped);
-						//System.out.println("Creat a new productttt");
 						p.setId(productId);
 					
 					rs.close();
@@ -382,7 +380,7 @@ public class Database {
 		}
 	}
 
-	private void deleteOrder(int orderId) {
+	public void deleteOrder(int orderId) {
 		String query = "Delete from Orders where Id = ?;";
 		
 		try {
@@ -540,6 +538,45 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean addQuestion (Integer productId, Integer customerId, String question) {
+		String insert = "INSERT INTO ProductQA (ProductId, CustomerId, Question) VALUES (?, ?, ?)";
+		
+		try {
+			ps = conn.prepareStatement(insert);
+			ps.setInt(1, productId);
+			ps.setInt(2, customerId);
+			ps.setString(3, question);
+			
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean addReview (Integer productId, Integer customerId, String date, Integer rating, String review) {
+		String insert = "INSERT INTO CustomerReviews (ProductId, CustomerId, ReviewDate, Rating, Review)"
+				+ " VALUES (?, ?, ?, ?, ?)";
+		
+		try {
+			ps = conn.prepareStatement(insert);
+			ps.setInt(1, productId);
+			ps.setInt(2, customerId);
+			ps.setString(3, date);
+			ps.setInt(4, rating);
+			ps.setString(5, review);
+			
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 }
 	

@@ -9,24 +9,24 @@ public class Review {
 	private Date date;
 	private Integer rating;
 	private String review;
-	
+
 	Review (Users customer, Date date, Integer rating, String review) {
 		this.customer = customer;
 		this.date = date;
 		this.rating = rating;
 		this.review = review;
 	}
-	
+
 	Review (Users customer, String date, int rating, String review) {
 		this.customer = customer;
-		
+
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			this.date = formatter.parse(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.rating = rating;
 		this.review = review;
 	}
@@ -62,12 +62,12 @@ public class Review {
 	public void setReview(String review) {
 		this.review = review;
 	}
-	
+
 	public String formattedDate () {
 		SimpleDateFormat formatter = new SimpleDateFormat("EEEEEEEEE, MMMMMMMM dd, yyyy");
 		return formatter.format(this.date);
 	}
-	
+
 	public static String stars (Integer stars) {
 		if (stars > 5) stars = 5;
 		if (stars < 0) stars = 0;
@@ -86,13 +86,24 @@ public class Review {
 
 		return sb.toString();
 	}
-	
+
 	public String stars () {
 		return Review.stars(this.rating);
 	}
-	
+
 	public static boolean addReview (Users customer, Integer productId, String customerReview, Integer rating) {
-		// TODO: Add review to database
-		return false;
+		boolean sent = false;
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String formattedDate = df.format(date);
+
+		Database db = new Database();
+		db.connect();
+
+		sent = db.addReview(productId, customer.getId(), formattedDate, rating, customerReview);
+
+		db.close();
+		return sent;
 	}
 }

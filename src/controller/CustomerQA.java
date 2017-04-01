@@ -18,13 +18,13 @@ import util.InputFormatting;
  */
 public class CustomerQA extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CustomerQA() {
-        super();
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CustomerQA() {
+		super();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,14 +32,14 @@ public class CustomerQA extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer productId = Integer.parseInt(request.getParameter("productId"));
 		String customerQuestion = InputFormatting.safeFilter(request.getParameter("question"));
-		
+
 		HttpSession session = request.getSession();
 		Users customer = (Users)session.getAttribute("user");
-		
+
 		PrintWriter out = response.getWriter();
-		
+
 		/* Send question to the database */
-		if (QuestionAnswer.addQuestion(customer, productId, customerQuestion)) {
+		if (QuestionAnswer.addQuestion(productId, customer, customerQuestion)) {
 			/* Success */
 			out.print("1");
 		} else {

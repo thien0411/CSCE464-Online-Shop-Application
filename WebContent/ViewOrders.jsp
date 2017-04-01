@@ -9,10 +9,7 @@
 
 <title>View Order</title>
 
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="css/main.css">
+<jsp:include page="/WEB-INF/stylesheets.html" />
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -51,7 +48,7 @@
 </nav>
 
 <div class="container">
-  
+
   <c:choose>
     <c:when test="${orderList.size() == 0}">
       <h2>You have no orders.</h2>
@@ -64,7 +61,7 @@
           <th>Order Total</th>
           <th>Order Date</th>
         </tr>
-    
+
         <c:forEach var="order" items="${orderList}">
         	<tr>
          		<td>${order.orderId}</td>
