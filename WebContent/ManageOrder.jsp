@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<title>Manage Order</title>
+<title>Manage Order | <c:out value="${initParam.App_Title}" /></title>
 
 <jsp:include page="/WEB-INF/stylesheets.html" />
 </head>

@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Shopping Cart</title>
+<title>Shopping Cart | <c:out value="${initParam.App_Title}" /></title>
 
 <jsp:include page="/WEB-INF/stylesheets.html" />
 </head>
@@ -68,25 +68,25 @@
 <script src="js/main.js"></script>
 <script>
   /* TODO: Define AJAX for updating shopping cart */
-  
+
   $(document).ready(() => {
     $('.remove-item').click(function () {
       /* Sends action, productId */
       var action = $(this).prev().val()
       var id = $(this).prev().prev().val()
-      
+
       var dataSend = {
         action: action,
         productId: id
       }
-      
+
       $(this).prop('disabled', true)
-      
+
       var temp = $(this)
-      
+
       $.post('UpdateShoppingCart', dataSend, (data, status) => {
         var result = JSON.parse(data)
-        
+
         switch (result.success) {
           case 0:
             temp.prop('disabled', false)

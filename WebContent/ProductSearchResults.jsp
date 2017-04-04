@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Search - <c:out value="${query}"/></title>
+<title>Search - "<c:out value="${query}"/>" | <c:out value="${initParam.App_Title}" /></title>
 
 <jsp:include page="/WEB-INF/stylesheets.html" />
 </head>
