@@ -16,7 +16,7 @@
 
 <h2>Details</h2>
 
-<p>Type: <c:out value="${pageContext.exception["class"]}"/></p>
+<p>Type: <c:out value="${pageContext.exception['class']}"/></p>
 <p>Message: <c:out value="${pageContext.exception.message}" /></p>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

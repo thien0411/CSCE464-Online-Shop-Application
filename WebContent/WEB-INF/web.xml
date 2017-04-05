@@ -21,7 +21,6 @@
     <param-name>App_Title</param-name>
     <param-value>MVC Application</param-value>
   </context-param>
-  </context-param>
   <servlet>
     <description></description>
     <display-name>Login</display-name>
