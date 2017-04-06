@@ -55,7 +55,7 @@
         </tr>
       </table>
 
-      <form action="CustomerTransaction.jsp" method="post">
+      <form action="ConfirmOrder.jsp" method="post">
         <input class="btn btn-primary" type="submit" value="Checkout">
       </form>
     </c:otherwise>
@@ -67,8 +67,6 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
 <script>
-  /* TODO: Define AJAX for updating shopping cart */
-
   $(document).ready(() => {
     $('.remove-item').click(function () {
       /* Sends action, productId */

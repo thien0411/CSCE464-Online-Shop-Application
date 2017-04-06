@@ -95,6 +95,7 @@
   </div>
 
   <div>
+    <h3 id="message"></h3>
     <br>
     <input type="hidden" id="cartTotal" value="${cartTotal}">
     <button type="button" id="confirmPayment" class="btn btn-primary">Confirm Payment</button>
@@ -113,7 +114,6 @@
 
 <script>
   $(document).ready(() => {
-    /* TODO: confirm_function */
     function confirm_function () {
       /*
       * Send cardType, cardNumber, securityCode, expireMonth,
@@ -162,6 +162,7 @@
       var orderDataSend = {
           firstName: firstName,
           lastName: lastName,
+          cardNumber: cardNumber,
           billingAddress: billingAddress,
           shippingAddress: shippingAddress
       }
@@ -177,14 +178,14 @@
       })
     }
 
-    /* TODO: place_order_function */
     function place_order_function (orderData) {
       /*
       * Send firstName, lastName, billingAddress, shippingAddress
       */
-      $.post('', orderData, (data, status) => {
+      $.post('PlaceOrder', orderData, (data, status) => {
         if (data == 1) {
           /* Success*/
+          $('#message').text('*Order successfully processed!*')
         } else {
           $('#confirmPayment').prop('disabled', false)
           alert('Error: Could not process order')

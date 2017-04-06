@@ -171,4 +171,14 @@
     <servlet-name>CustomerQA</servlet-name>
     <url-pattern>/CustomerQA</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PlaceOrder</display-name>
+    <servlet-name>PlaceOrder</servlet-name>
+    <servlet-class>controller.PlaceOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PlaceOrder</servlet-name>
+    <url-pattern>/PlaceOrder</url-pattern>
+  </servlet-mapping>
 </web-app>
