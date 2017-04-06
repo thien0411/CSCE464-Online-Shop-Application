@@ -38,8 +38,15 @@ public class QuestionAnswer {
 		this.answer = answer;
 	}
 	
-	public static boolean addQuestion (Users customer, Integer productId, String question) {
-		/* TODO: Add question to database */
-		return false;
+	public static boolean addQuestion (Integer productId, Users customer, String question) {
+		boolean sent;
+		
+		Database db = new Database();
+		db.connect();
+		
+		sent = db.addQuestion(productId, customer.getId(), question);
+		
+		db.close();
+		return sent;
 	}
 }

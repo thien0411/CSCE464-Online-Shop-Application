@@ -9,6 +9,18 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/Error.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/Exception.jsp</location>
+  </error-page>
+  <context-param>
+    <param-name>App_Title</param-name>
+    <param-value>MVC Application</param-value>
+  </context-param>
   <servlet>
     <description></description>
     <display-name>Login</display-name>
@@ -158,5 +170,15 @@
   <servlet-mapping>
     <servlet-name>CustomerQA</servlet-name>
     <url-pattern>/CustomerQA</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PlaceOrder</display-name>
+    <servlet-name>PlaceOrder</servlet-name>
+    <servlet-class>controller.PlaceOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PlaceOrder</servlet-name>
+    <url-pattern>/PlaceOrder</url-pattern>
   </servlet-mapping>
 </web-app>

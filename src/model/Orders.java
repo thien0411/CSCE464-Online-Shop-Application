@@ -118,7 +118,6 @@ public class Orders {
 	public static void deteleItem(int itemId, int orderId) {
 		Database db = new Database();
 		db.connect();
-		System.out.println("gooooo herrrreeee");
 		db.deteleOrderItem(itemId, orderId);
 		db.close();
 	}

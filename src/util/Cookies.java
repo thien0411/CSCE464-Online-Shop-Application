@@ -32,6 +32,4 @@ public class Cookies {
 		
 		return defaultValue;
 	}
-	
-	/*TODO: For extra credit, add other functions for remembering login info.*/
 }
